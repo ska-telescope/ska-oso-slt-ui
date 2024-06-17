@@ -7,7 +7,7 @@ import App from './App';
 
 const THEME = [THEME_DARK, THEME_LIGHT];
 
-describe('<ReactSkeleton />', () => {
+describe('<Components />', () => {
   for (const theTheme of THEME) {
     it(`Theme ${theTheme}: Renders`, () => {
       cy.mount(

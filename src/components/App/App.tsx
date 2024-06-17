@@ -10,14 +10,14 @@ import {
 } from '@ska-telescope/ska-gui-components';
 import { storageObject } from '@ska-telescope/ska-gui-local-storage';
 import Loader from '../Loader/Loader';
-import ReactSkeleton from '../ReactSkeleton/ReactSkeleton';
 import theme from '../../services/theme/theme';
+import Components from '../ShiftLog/ShiftLog';
 
 const HEADER_HEIGHT = 70;
 const FOOTER_HEIGHT = 20;
 
 function App() {
-  const { t } = useTranslation('reactSkeleton');
+  const { t } = useTranslation('translations');
   const [showCopyright, setShowCopyright] = React.useState(false);
   const { help, helpToggle, telescope, themeMode, toggleTheme, updateTelescope } =
     storageObject.useStore();
@@ -53,7 +53,7 @@ function App() {
         <Header
           docs={docs}
           testId="headerId"
-          title="ska react skeleton"
+          title="Shift Log Tool"
           toolTip={toolTip}
           selectTelescope={false}
           storage={theStorage}
@@ -65,7 +65,7 @@ function App() {
         {
           // This is the ONLY component that is accessible via micro-frontend implementation
         }
-        <ReactSkeleton />
+        <Components />
         {
           // Example of the spacer being used to stop content from being hidden behind the Footer component
         }

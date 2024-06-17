@@ -1,9 +1,9 @@
 {
-  "name": "ska-webapps-react-skeleton",
-  "version": "1.0.2",
+  "name": "ska-oso-slt-ui",
+  "version": "1.0.0",
   "private": true,
-  "description": "SKA React Web App Skeleton",
-  "repository": "git@gitlab.com:ska-telescope/templates/ska-react-webapp-skeleton.git",
+  "description": "SKA Shift Log Tool",
+  "repository": "git@gitlab.com:ska-telescope/oso/ska-oso-slt-ui.git",
   "license": "BSD 3-Clause",
   "main": "index.js",
   "scripts": {

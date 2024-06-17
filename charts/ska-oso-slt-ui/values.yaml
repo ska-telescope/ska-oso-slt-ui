@@ -1,0 +1,9 @@
+image:
+  registry: artefact.skao.int
+  image: ska-oso-slt-ui
+  tag:  ~ # Defaults to chart's appVersion when empty
+  pullPolicy: IfNotPresent
+
+ingress:
+  prependByNamespace: true
+  path: ptt

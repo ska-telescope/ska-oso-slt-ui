@@ -3,12 +3,11 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
-{{ include "labels" . | indent 4 }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-  labels:
-{{ include "labels" . | indent 4 }}
   name: {{ $.Chart.Name }}-ingress
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "ska-oso-slt-ui.labels" . | indent 4 }}
 spec:
   rules:
   - http:
@@ -18,5 +17,6 @@ spec:
             name: {{ $.Chart.Name }}-service
             port:
               number: 80
-        path: "/{{ .Release.Namespace }}/(.*)"
+        # Match everything but '/api' which is reserved for back-end
+        path: {{ template "ska-oso-slt-ui.ingress" . }}/(?!api)(.*)
         pathType: ImplementationSpecific

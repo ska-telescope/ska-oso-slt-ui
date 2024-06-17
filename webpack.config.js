@@ -64,11 +64,11 @@ module.exports = () => {
         'process.env.VERSION': JSON.stringify(process.env.npm_package_version),
       }),
       new ModuleFederationPlugin({
-        name: 'reactSkeleton',
+        name: 'slt',
         filename: 'remoteEntry.js',
         remotes: {},
         exposes: {
-          './ReactSkeleton': './src/components/ReactSkeleton/ReactSkeleton.tsx',
+          './slt': './src/components/ShiftLog/ShiftLog.tsx',
         },
         shared: {
           ...deps,

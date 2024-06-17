@@ -1,7 +1,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'ska-react-webapp-skeleton'
+project = 'ska-oso-slt-ui'
 copyright = '2023, SKAO'
 author = 'SKAO, (Trevor A Swain)'
 
@@ -44,7 +44,7 @@ html_static_path = []
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
-htmlhelp_basename = 'ska-react-webapp-skeleton'
+htmlhelp_basename = 'ska-oso-slt-ui'
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -52,22 +52,22 @@ latex_elements = {
 }
 
 latex_documents = [
-    (master_doc, 'ska-react-webapp-skeleton.tex', 'ska-react-webapp-skeleton Documentation',
+    (master_doc, 'ska-oso-slt-ui.tex', 'ska-oso-slt-ui Documentation',
      'SKAO, (Trevor A Swain)', 'manual'),
 ]
 
 # -- Options for manual page output ------------------------------------------
 
 man_pages = [
-    (master_doc, 'ska-react-webapp-skeleton', 'ska-react-webapp-skeleton Documentation',
+    (master_doc, 'ska-oso-slt-ui', 'ska-oso-slt-ui Documentation',
      [author], 1)
 ]
 
 # -- Options for Texinfo output ----------------------------------------------
 
 texinfo_documents = [
-    (master_doc, 'ska-react-webapp-skeleton', 'ska-react-webapp-skeleton Documentation',
-     author, 'ska-react-webapp-skeleton', 'SKA Portal',
+    (master_doc, 'ska-oso-slt-ui', 'ska-oso-slt-ui Documentation',
+     author, 'ska-oso-slt-ui', 'SKA Portal',
      'Miscellaneous'),
 ]
 
