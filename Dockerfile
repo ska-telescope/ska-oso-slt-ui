@@ -1,7 +1,7 @@
 # pull the base image
 FROM node:21-alpine as base
 
-# set the working direction
+# # set the working direction
 WORKDIR /app
 COPY . .
 
@@ -18,7 +18,6 @@ COPY nginx.conf /etc/nginx/
 
 EXPOSE 80
 
-COPY nginx_env_config.sh .
-COPY nginx_env_config.sh /docker-entrypoint.d/
+COPY scripts/* /docker-entrypoint.d/
 
 CMD ["nginx", "-g", "daemon off;"]
