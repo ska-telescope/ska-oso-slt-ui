@@ -1,6 +1,6 @@
 apiVersion: v2
 name: ska-oso-slt-ui-umbrella
-description: Helm umbrella chart for Project Tracking Toolapplication
+description: Helm umbrella chart for Project Tracking Tool application
 type: application
 version: 1.0.0
 appVersion: 1.0.0
@@ -10,9 +10,15 @@ dependencies:
   version: 1.0.0
   repository: file://../ska-oso-slt-ui
 
-# ODA is a dependency of ODT services. Include it for data persistence
-- name: ska-db-oda-umbrella
-  version: 4.0.0
-  repository: https://artefact.skao.int/repository/helm-internal
-  condition: ska-db-oda.enabled
+# SLT services provides services required by the SLT UI and acts as the proxy
+# for all ODA operations (load SBD, save SBD, etc.)
+# - name: ska-oso-slt-services
+#   version: 1.0.0
+#   repository: https://artefact.skao.int/repository/helm-internal
 
+# # ODA is a dependency of SLT services. Include it for data persistence
+# # The ODA umbrella chart includes ODA API, PostgreSQL database and SKUID
+# - name: ska-db-oda-umbrella
+#   version: 4.1.0
+#   repository: https://artefact.skao.int/repository/helm-internal
+#   condition: ska-db-oda.enabled

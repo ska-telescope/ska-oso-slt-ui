@@ -1,9 +1,12 @@
 image:
   registry: registry.gitlab.com
-  image: ska-telescope/ost/ska-oso-slt-ui/ska-oso-slt-ui
-  tag:  1.0.3-dev.c18066dd9 # Defaults to chart's appVersion when empty
+  image: ska-telescope/oso/ska-oso-slt-ui/ska-oso-slt-ui
+  tag:  1.0.0-dev.c0b40d5f6 # Defaults to chart's appVersion when empty
   pullPolicy: IfNotPresent
 
 ingress:
   prependByNamespace: true
-  path: ptt
+  path: slt
+
+# Set this in the Makefile
+backendURL:
