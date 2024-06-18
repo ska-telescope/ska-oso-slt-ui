@@ -7,7 +7,7 @@ KUBE_NAMESPACE ?= ska-oso-slt-ui
 K8S_CHART ?= ska-oso-slt-ui-umbrella
 
 # The default ODA_BACKEND_URL points to the umbrella chart ODA back-end deployment
-BACKEND_URL ?= $(KUBE_HOST)/$(KUBE_NAMESPACE)/oda/api/v4
+BACKEND_URL ?= $(KUBE_HOST)/$(KUBE_NAMESPACE)/slt/api/v1
 K8S_CHART_PARAMS += \
   --set ska-oso-slt-ui.backendURL=$(BACKEND_URL)
 

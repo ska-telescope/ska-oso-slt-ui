@@ -155,16 +155,16 @@ pages:
       - public
     expire_in: 30 days
 
-########################## PHT SPECIFIC STUFF BELOW HERE #################################
+########################## SLT SPECIFIC STUFF BELOW HERE #################################
 
 .info_script: &info_script
   - |-
     echo "Status of pods in $KUBE_NAMESPACE namespace:"
     kubectl get pods -n $KUBE_NAMESPACE -o jsonpath="{range .items[*]}{'Pod: '}{.metadata.name}:{'\n'}{'\t'}{'Image: '}{.spec.containers[*].image}{'\n'}{'\t'}{'Status: '}{.status.phase}{'\n'}{end}{'\n'}"
-    echo "Addresses to connect to the deployment of the PHT: "
-    echo "  https://$KUBE_HOST/$KUBE_NAMESPACE/pht"
+    echo "Addresses to connect to the deployment of the SLT: "
+    echo "  https://$KUBE_HOST/$KUBE_NAMESPACE/slt"
     echo "Backend API:"
-    echo "  https://$KUBE_HOST/$KUBE_NAMESPACE/pht/api/v1/ui/"
+    echo "  https://$KUBE_HOST/$KUBE_NAMESPACE/slt/api/v1/ui/"
 
 .dev_env: &dev_env
   variables:
@@ -195,7 +195,7 @@ test-dev-environment:
 stop-dev-environment:
   <<: *dev_env
 
-########################## PHT SPECIFIC STUFF ABOVE HERE #################################
+########################## SLT SPECIFIC STUFF ABOVE HERE #################################
 
 include:
   - template: Code-Quality.gitlab-ci.yml

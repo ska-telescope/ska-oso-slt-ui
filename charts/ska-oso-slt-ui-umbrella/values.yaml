@@ -22,21 +22,21 @@ global:
 #     ingress:
 #       enabled: true
 
-ska-db-oda-umbrella:
-  ska-db-oda:
-    enabled: true
-    rest:
-      enabled: true
-      ingress:
-        enabled: true
-      backend:
-        postgres:
-          host:
-  postgresql:
-    enabled: true
-  pgadmin4:
-    enabled: true
-  ska-ser-skuid:
-    skuid:
-      enabled: true
+# ska-db-oda-umbrella:
+#   ska-db-oda:
+#     enabled: true
+#     rest:
+#       enabled: true
+#       ingress:
+#         enabled: true
+#       backend:
+#         postgres:
+#           host:
+#   postgresql:
+#     enabled: true
+#   pgadmin4:
+#     enabled: true
+#   ska-ser-skuid:
+#     skuid:
+#       enabled: true
 
