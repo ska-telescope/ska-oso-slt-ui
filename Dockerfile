@@ -1,24 +1,32 @@
 # pull the base image
 FROM node:21-alpine as base
 
-# set the working direction
+# # set the working direction
 WORKDIR /app
 COPY . .
 
-# install app dependencies and build the app
+# install app dependencies
 RUN yarn install && yarn cache clean
-RUN yarn build
+
+EXPOSE 6101
+
+# start app
+CMD ["yarn", "start"]
+
+FROM base as builder
+
+RUN yarn webpack build \
+    --mode production \
+    --optimization-concatenate-modules \
+    --optimization-minimize \
+    --output-clean \
+    --output-path /dist/ && \
+    npx react-inject-env set -d /dist/
 
 FROM nginx:1.25.2 as final
 
 # Copy built files
-COPY --from=base /app/dist/ /usr/share/nginx/html/
-
-COPY nginx.conf /etc/nginx/
-
-EXPOSE 80
-
-COPY nginx_env_config.sh .
+COPY .env /.env
 COPY nginx_env_config.sh /docker-entrypoint.d/
-
-CMD ["nginx", "-g", "daemon off;"]
+RUN chmod 777 /docker-entrypoint.d/nginx_env_config.sh
+COPY --from=builder /dist/* /usr/share/nginx/html/
