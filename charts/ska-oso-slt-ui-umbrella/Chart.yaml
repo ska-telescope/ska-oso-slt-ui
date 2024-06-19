@@ -12,9 +12,9 @@ dependencies:
 
 # slt services provides services required by the slt UI and acts as the proxy
 # for all ODA operations (load SBD, save SBD, etc.)
-- name: ska-oso-slt-services
-  version: 1.0.0
-  repository: https://artefact.skao.int/repository/helm-internal
+# - name: ska-oso-slt-services
+#   version: 1.0.0
+#   repository: https://artefact.skao.int/repository/helm-internal
 
 # ODA is a dependency of slt services. Include it for data persistence
 # The ODA umbrella chart includes ODA API, PostgreSQL database and SKUID
