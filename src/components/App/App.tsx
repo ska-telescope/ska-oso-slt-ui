@@ -11,6 +11,7 @@ import {
 import { storageObject } from '@ska-telescope/ska-gui-local-storage';
 import Loader from '../Loader/Loader';
 import theme from '../../services/theme/theme';
+import Components from '../ShiftLog/ShiftLog';
 
 const HEADER_HEIGHT = 70;
 const FOOTER_HEIGHT = 20;
@@ -64,6 +65,7 @@ function App() {
         {
           // This is the ONLY component that is accessible via micro-frontend implementation
         }
+        <Components />
         {
           // Example of the spacer being used to stop content from being hidden behind the Footer component
         }
