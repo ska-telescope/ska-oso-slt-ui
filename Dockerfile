@@ -5,28 +5,19 @@ FROM node:21-alpine as base
 WORKDIR /app
 COPY . .
 
-# install app dependencies
+# install app dependencies and build the app
 RUN yarn install && yarn cache clean
-
-EXPOSE 6101
-
-# start app
-CMD ["yarn", "start"]
-
-FROM base as builder
-
-RUN yarn webpack build \
-    --mode production \
-    --optimization-concatenate-modules \
-    --optimization-minimize \
-    --output-clean \
-    --output-path /dist/ && \
-    npx react-inject-env set -d /dist/
+RUN yarn build
 
 FROM nginx:1.25.2 as final
 
 # Copy built files
-COPY .env /.env
-COPY nginx_env_config.sh /docker-entrypoint.d/
-RUN chmod 777 /docker-entrypoint.d/nginx_env_config.sh
-COPY --from=builder /dist/* /usr/share/nginx/html/
+COPY --from=base /app/dist/ /usr/share/nginx/html/
+
+COPY nginx.conf /etc/nginx/
+
+EXPOSE 80
+
+COPY scripts/* /docker-entrypoint.d/
+
+CMD ["nginx", "-g", "daemon off;"]

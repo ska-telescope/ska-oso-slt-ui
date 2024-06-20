@@ -2,9 +2,8 @@
 apiVersion: v2
 
 name: ska-oso-slt-ui
-description: A Helm chart to deploy the Shift Log Tool UI
+description: A Helm chart to deploy the Observation Design Tool UI
 home: https://gitlab.com/ska-telescope/oso/ska-oso-slt-ui
-icon: https://www.skatelescope.org/wp-content/uploads/2016/07/09545_NEW_LOGO_2014.png
 
 version: 1.0.0
 appVersion: 1.0.0

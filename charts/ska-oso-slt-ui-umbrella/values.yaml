@@ -11,7 +11,7 @@ global:
 # The configuration can be changed using the parameters below, or see the `make dev-up` target.
 
 # Note: the SLT url, ODA url and Postgres host are only known at runtime, so are set in the Makefile
-# ska-oso-slt-services:
+# ska-oso-SLT-services:
 #   rest:
 #     logLevel: debug
 #     enabled: true
