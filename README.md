@@ -1,4 +1,4 @@
-# SKA OSO SLT UI
+# SKA OSO SHIFT LOG TOOL UI
 
 This project is the User Interface for the Observation Design Tool. It allows users to create, edit and persist data about an observation in Scheduling Blocks.
 The UI communicates with the SLT Services backend, which connects to the ODA. See RTD for more details.
