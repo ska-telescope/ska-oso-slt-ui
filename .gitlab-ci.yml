@@ -55,7 +55,7 @@ code_analysis:
 
 # run the cypress test coverage reports
 test_and_coverage:
-  image: cypress/browsers:node18.12.0-chrome106-ff106
+  image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
   stage: test
   tags:
     - k8srunner
@@ -69,7 +69,7 @@ test_and_coverage:
     - yarn install --frozen-lockfile
   script:
     - yarn start &
-    - yarn test:component:headless
+    - yarn test:e2e:headless
     - yarn test:coverage:report:ci
     - cp build/reports/cobertura-coverage.xml build/reports/code-coverage.xml
   artifacts:
@@ -103,7 +103,7 @@ list_dependencies:
       - .public
 
 test-counts:
-  image: cypress/browsers:node18.12.0-chrome106-ff106
+  image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
   stage: test
   tags:
     - k8srunner
