@@ -1,5 +1,0 @@
-#!/bin/env bash
-
-yarn prettier:fix 
-
-yarn lint:fix
