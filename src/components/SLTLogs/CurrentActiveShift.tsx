@@ -57,27 +57,21 @@ function CurrentActiveShift() {
 
   const updateShitLogs = async (shiftID) => {
     const path = `shift/shifts/${shiftID}`;
-    const result = await apiService.getSltLogs(path);
-    if (dataDetails && dataDetails.length === 0) {
-      setSltLogs(
-        result && result.data && result.data.shift_logs && result.data.shift_logs.length > 0
-          ? result.data.shift_logs
-          : []
-      );
-    }
-    if (
-      dataDetails &&
-      dataDetails.length < result &&
-      result.data &&
-      result.data.shift_logs &&
-      result.data.shift_logs.length
-    ) {
-      setSltLogs(
-        result && result.data && result.data.shift_logs && result.data.shift_logs.length > 0
-          ? result.data.shift_logs
-          : []
-      );
-    }
+    const eventSource = new EventSource(path);
+    eventSource.onmessage = (event) => {
+      try {
+        const parsedData = JSON.parse(event.data);
+        setSltLogs(parsedData);
+      } catch (e) {
+        // console.error('Failed to parse event data:', e);
+      }
+    };
+    eventSource.onerror = () => {
+      eventSource.close();
+    };
+    return () => {
+      eventSource.close();
+    };
   };
 
   const startNewShift = async () => {
