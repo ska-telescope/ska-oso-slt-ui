@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import {
   Button,
@@ -49,7 +50,7 @@ const useKafkaData = (topic) => {
         }
       });
     };
-    run().catch();
+    run().catch(console.error);
     return () => {
       consumer.disconnect();
     };
