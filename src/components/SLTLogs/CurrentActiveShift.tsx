@@ -26,10 +26,36 @@ import HistoryIcon from '@mui/icons-material/History';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import moment from 'moment';
+import { Kafka } from 'kafkajs';
 import { ENTITY, DEFAULT_TIME, operatorName } from '../../utils/constants';
 import apiService from '../../services/apis';
 import ImageDisplay from './ImageDisplay';
 import ShiftLogs from './ShiftLogs';
+
+const useKafkaData = (topic) => {
+  const [messages, setMessages] = useState([]);
+  useEffect(() => {
+    const kafka = new Kafka({
+      clientId: window.location.hostname,
+      brokers: ['kafka-cluster-kafka-bootstrap:9092']
+    });
+    const consumer = kafka.consumer({ groupId: 'my_consumer_group' });
+    const run = async () => {
+      await consumer.connect();
+      await consumer.subscribe({ topic, fromBeginning: true });
+      await consumer.run({
+        eachMessage: async ({ message }) => {
+          setMessages((prevMessages) => [...prevMessages, message.value.toString()]);
+        }
+      });
+    };
+    run().catch();
+    return () => {
+      consumer.disconnect();
+    };
+  }, [topic]);
+  return messages;
+};
 
 function CurrentActiveShift() {
   const [displayShiftStart, setDisplayShiftStart] = useState(DEFAULT_TIME);
@@ -48,37 +74,33 @@ function CurrentActiveShift() {
   const location = useLocation();
   const [interval, setItervalLogs] = useState(null);
   const [inputValue, setInputValue] = React.useState('');
+  const messages = useKafkaData('slt-to-frontend-topic');
 
   const fetchImage = async () => {
-    const path = `shift/shifts/download-image/${shiftId}`;
+    const path = `shifts/download_image/${shiftId}`;
     const result = await apiService.getImage(path);
     setImages(result && result.data && result.data[0]);
   };
 
   const updateShitLogs = async (shiftID) => {
-    const path = `shift/shifts/${shiftID}`;
-    const eventSource = new EventSource(path);
-    eventSource.onmessage = (event) => {
-      try {
-        const parsedData = JSON.parse(event.data);
-        setSltLogs(parsedData);
-      } catch (e) {
-        eventSource.close();
+    if (messages && message.length > 0) {
+      const path = `shift?shift_id=${shiftID}`;
+      const result = await apiService.getSltLogs(path);
+      if (dataDetails && dataDetails.length === 0) {
+        setSltLogs(
+          result && result.data && result.data.length > 0 && result.data[0].shift_logs
+            ? result.data[0].shift_logs
+            : []
+        );
       }
-    };
-    eventSource.onerror = () => {
-      eventSource.close();
-    };
-    return () => {
-      eventSource.close();
-    };
+    }
   };
 
   const startNewShift = async () => {
     const shiftData = {
       shift_operator: operator
     };
-    const path = `shift/shifts/create`;
+    const path = `shifts/create`;
     const response = await apiService.postShiftData(path, shiftData);
     if (response.status === 200 && response.data && response.data.length > 0) {
       setMessage('msg.shiftStarted');
@@ -89,26 +111,20 @@ function CurrentActiveShift() {
       setDisableButton(false);
       setShiftStart(response.data[0].shift_start);
       setDisplayShiftStart(
-        moment(response.data[0].shift_start).utc().format('YYYY-MM-DD HH:mm:ss')
+        moment(response.data[0].shift_start).utc().format('DD-MM-YYYY HH:mm:ss')
       );
       setShiftId(response.data[0].shift_id);
       setSltLogs(
-        response &&
-          response.data[0].shift_logs &&
-          response.data[0].shift_logs &&
-          response.data[0].shift_logs.logs.length > 0
-          ? response.data[0].shift_logs.logs
+        response && response.data && response.data.length > 0 && response.data[0].shift_logs
+          ? response.data[0].shift_logs
           : []
       );
-      const intervel = setInterval(() => {
-        updateShitLogs(response.data[0].shift_id);
-      }, 25000);
-      setItervalLogs(intervel);
+      updateShitLogs(response.data[0].shift_id);
     }
   };
 
   const fetchSltCurrentShifts = async () => {
-    const path = `shift/shifts/current_shift`;
+    const path = `shifts/current_shift`;
     const response = await apiService.getSltData(path);
     if (response.status === 200 && !response.data.shift_end) {
       setMessage('msg.shiftAlreadyStarted');
@@ -128,6 +144,7 @@ function CurrentActiveShift() {
       setItervalLogs(intervel);
     }
   };
+
   useEffect(() => {
     fetchSltCurrentShifts();
   }, []);
@@ -137,16 +154,15 @@ function CurrentActiveShift() {
       shift_operator: operator,
       shift_start: shiftStart,
       shift_end: moment().utc().toISOString(),
-      comments: `${commentValue}`,
-      shift_id: shiftId
+      comments: `${commentValue}`
     };
 
-    const path = `shift/shifts/update`;
+    const path = `shifts/update/${shiftId}`;
     const response = await apiService.putShiftData(path, shiftData);
     if (response.status === 200) {
       setMessage('msg.shiftEnd');
       setDisplayMessageElement(true);
-      setDisplayShiftEnd(moment(response.data[0].shift_end).utc().format('YYYY-MM-DD HH:mm:ss'));
+      setDisplayShiftEnd(moment(response.data[0].shift_end).utc().format('DD-MM-YYYY HH:mm:ss'));
       setTimeout(() => {
         setDisplayMessageElement(false);
         setOperator('');
@@ -163,11 +179,9 @@ function CurrentActiveShift() {
 
     const shiftData = {
       shift_operator: operator,
-      shift_start: shiftStart,
-      comments: `${commentValue}`,
-      shift_id: shiftId
+      comments: `${commentValue}`
     };
-    const path = `shift/shifts/update`;
+    const path = `shifts/update/${shiftId}`;
     const response = await apiService.putShiftData(path, shiftData);
     if (response.status === 200) {
       setMessage('msg.commentSubmit');
@@ -190,7 +204,7 @@ function CurrentActiveShift() {
   };
 
   const postImage = async (file) => {
-    const path = `shift/shifts/upload_image/${shiftId}`;
+    const path = `shifts/upload_image/${shiftId}`;
 
     const formData = new FormData();
     formData.append('file', file);
@@ -218,6 +232,7 @@ function CurrentActiveShift() {
   };
   const renderMessageResponse = () => (
     <InfoCard
+      minHeight="50"
       fontSize={20}
       color={InfoCardColorTypes.Success}
       message={t(message)}
@@ -422,8 +437,11 @@ function CurrentActiveShift() {
           {t('label.logSummary')}
         </p>
         <hr />
-        {dataDetails ? <ShiftLogs logData={dataDetails} /> : ''}
-        {/* {dataDetails ? <SLTLogTableList updatedList={onTriggerFunction} data={dataDetails} /> : ''} */}
+        {dataDetails && dataDetails.length > 0 ? (
+          <ShiftLogs logData={dataDetails} />
+        ) : (
+          <p style={{ padding: '10px' }}>{t('label.noLogsFound')}</p>
+        )}
       </Paper>
     </Box>
   );
