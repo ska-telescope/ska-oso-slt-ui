@@ -116,7 +116,7 @@ function CurrentActiveShift() {
       );
       setShiftId(response.data[0].shift_id);
       setSltLogs(
-        response && response.data && response.data.length > 0 && response.data[0].shift_logs
+        response && response.data[0].shift_logs && response.data[0].shift_logs.length > 0
           ? response.data[0].shift_logs
           : []
       );
@@ -134,7 +134,7 @@ function CurrentActiveShift() {
         setDisplayMessageElement(false);
       }, 3000);
       if (response && response.data && response.data) {
-        setDisplayShiftStart(moment(response.data.shift_start).format('YYYY-MM-DD HH:mm:ss'));
+        setDisplayShiftStart(moment(response.data.shift_start).format('DD-MM-YYYY HH:mm:ss'));
         setShiftId(response.data[0].shift_id);
         setOperator(response.data.shift_operator.name);
         setComment(response.data.comments ? response.data.comments : '');
@@ -145,7 +145,6 @@ function CurrentActiveShift() {
       setItervalLogs(intervel);
     }
   };
-
   useEffect(() => {
     fetchSltCurrentShifts();
   }, []);
