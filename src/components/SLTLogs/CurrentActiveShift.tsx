@@ -83,7 +83,7 @@ function CurrentActiveShift() {
     setImages(result && result.data && result.data[0]);
   };
 
-  const updateShitLogs = async (shiftID) => {
+  const updateShiftLogs = async (shiftID) => {
     if (messages && message.length > 0) {
       const path = `shift?shift_id=${shiftID}`;
       const result = await apiService.getSltLogs(path);
@@ -120,7 +120,7 @@ function CurrentActiveShift() {
           ? response.data[0].shift_logs
           : []
       );
-      updateShitLogs(response.data[0].shift_id);
+      updateShiftLogs(response.data[0].shift_id);
     }
   };
 
@@ -140,7 +140,7 @@ function CurrentActiveShift() {
         setComment(response.data.comments ? response.data.comments : '');
       }
       const intervel = setInterval(() => {
-        updateShitLogs(response && response.data && response.data[0].shift_id);
+        updateShiftLogs(response && response.data && response.data[0].shift_id);
       }, 25000);
       setItervalLogs(intervel);
     }
