@@ -63,7 +63,7 @@ function CurrentActiveShift() {
         const parsedData = JSON.parse(event.data);
         setSltLogs(parsedData);
       } catch (e) {
-        // console.error('Failed to parse event data:', e);
+        eventSource.close();
       }
     };
     eventSource.onerror = () => {
