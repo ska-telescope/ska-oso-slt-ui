@@ -10,11 +10,31 @@ BACKEND_URL ?= $(KUBE_HOST)/$(KUBE_NAMESPACE)/slt/api/v0
 K8S_CHART_PARAMS += \
   --set ska-oso-slt-ui.backendURL=$(BACKEND_URL) \
 
+# JS Template Variables
+JS_E2E_TEST_BASE_URL ?= $(KUBE_HOST)/$(KUBE_NAMESPACE)/slt/
+JS_E2E_COVERAGE_COMMAND_ENABLED = false
+JS_ESLINT_CONFIG ?= .eslintrc
+
+JS_COMMAND_RUNNER ?= yarn
+JS_TEST_COMMAND ?= cypress
+JS_TEST_DEFAULT_SWITCHES = run --coverage.enabled=true --reporter=junit --reporter=default --coverage.reportsDirectory=$(JS_BUILD_REPORTS_DIRECTORY) --outputFile=$(JS_BUILD_REPORTS_DIRECTORY)/unit-tests.xml
+
+# Post hook for coverage reports
+js-post-e2e-test:
+	yarn test:coverage:report:ci
+	cp build/reports/cobertura-coverage.xml build/reports/code-coverage.xml
+
+js-pre-e2e-test:
+	mkdir -p build/reports
+	mkdir -p build/.nyc_output
+
 # include core makefile targets for release management
 -include .make/base.mk
 -include .make/oci.mk
 -include .make/helm.mk
 -include .make/k8s.mk
+-include .make/js.mk
+
 
 # For the test, dev and integration environment, use the freshly built image in the GitLab registry
 ENV_CHECK := $(shell echo $(CI_ENVIRONMENT_SLUG) | egrep 'test|dev|integration')
