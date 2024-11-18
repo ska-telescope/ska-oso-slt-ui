@@ -18,6 +18,16 @@ stages:
   - accessibility
   - publish
 
+
+js-test:
+  allow_failure: true
+  image: ${TEST_IMAGE}
+  before_script:
+    - apt update && apt install -y make ## needed because base image does not have these packages
+    - '[ -f .make/js.mk ] || (echo "File js.mk not included in Makefile"; exit 1;)'
+    - 'make help | grep js-test'
+    - make js-install-reinstall ## needed to re-install cypress
+
 #Install basic dependencies using yarn
 install_dependencies:
   stage: dependencies
@@ -102,15 +112,6 @@ list_dependencies:
     paths:
       - .public
 
-js-test:
-  allow_failure: true
-  image: ${TEST_IMAGE}
-  before_script:
-    - apt update && apt install -y make ## needed because base image does not have these packages
-    - '[ -f .make/js.mk ] || (echo "File js.mk not included in Makefile"; exit 1;)'
-    - 'make help | grep js-test'
-    - make js-install-reinstall ## needed to re-install cypress
-    
 test-counts:
   image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
   stage: test
