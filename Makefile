@@ -13,7 +13,7 @@ K8S_CHART_PARAMS += \
 # JS Template Variables
 JS_E2E_TEST_BASE_URL ?= $(KUBE_HOST)/$(KUBE_NAMESPACE)/slt/
 JS_E2E_COVERAGE_COMMAND_ENABLED = false
-JS_ESLINT_CONFIG ?= .eslintrc
+JS_ESLINT_CONFIG ?= .eslintrc.js
 
 JS_COMMAND_RUNNER ?= yarn
 JS_TEST_COMMAND ?= cypress
