@@ -33,6 +33,8 @@ js-test:
     - '[ -f .make/js.mk ] || (echo "File js.mk not included in Makefile"; exit 1;)'
     - 'make help | grep js-test'
     - make js-install-reinstall ## needed to re-install cypress
+  script:
+    - 'make help | grep js-test'
 
 
 #Install basic dependencies using yarn
