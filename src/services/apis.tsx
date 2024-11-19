@@ -26,7 +26,9 @@ function handleAxiosError(error: object) {
 }
 
 const apiService = {
-  baseURL: () => window.env.BACKEND_URL,
+  // baseURL: () => window.env.BACKEND_URL,
+  baseURL: () => 'https://k8s.stfc.skao.int/dev-ska-oso-slt-services-nak-1023-update-oda-charts/slt/api/v0',
+  // baseURL: () => '  baseURL: () => 'https://k8s.stfc.skao.int/dev-ska-oso-slt-services-nak-1023-update-oda-charts/slt/api/v0'',
 
   getURLPath: async (path): Promise<any> => {
     const baseUrl = apiService.baseURL();
