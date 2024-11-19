@@ -220,6 +220,10 @@ include:
   # Docs pages
   - project: 'ska-telescope/templates-repository'
     file: 'gitlab-ci/includes/docs.gitlab-ci.yml'
+
+   # TS linting and unit testing
+  - project: 'ska-telescope/templates-repository'
+    file: 'gitlab-ci/includes/js.gitlab-ci.yml'
     # OCI Images
   - project: 'ska-telescope/templates-repository'
     file: 'gitlab-ci/includes/oci-image.gitlab-ci.yml'
@@ -235,17 +239,6 @@ include:
     # deploy steps
   - project: 'ska-telescope/templates-repository'
     file: 'gitlab-ci/includes/deploy.gitlab-ci.yml'
-     # TS linting and unit testing
-  - project: 'ska-telescope/templates-repository'
-    file: 'gitlab-ci/includes/js-lint.gitlab-ci.yml'
-
-  - project: 'ska-telescope/templates-repository'
-    file: 'gitlab-ci/includes/js-e2e-test.gitlab-ci.yml'
-
-js-e2e-test:
-  variables:
-    KUBE_HOST: 'http://ingress-nginx-controller-lb-stfc-techops-production-cicd.ingress-nginx.svc.techops.internal.skao.int'
-
 
 code_quality:
   # https://docs.gitlab.com/ee/user/project/merge_requests/code_quality.html#generate-an-html-report

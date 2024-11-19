@@ -17,12 +17,6 @@ JS_ESLINT_CONFIG ?= .eslintrc.js
 
 JS_COMMAND_RUNNER ?= yarn
 JS_TEST_COMMAND ?= jest
-JS_TEST_DEFAULT_SWITCHES = run --coverage.enabled=true --reporter=junit --reporter=default --coverage.reportsDirectory=$(JS_BUILD_REPORTS_DIRECTORY) --outputFile=$(JS_BUILD_REPORTS_DIRECTORY)/unit-tests.xml
-
-# Post hook for coverage reports
-js-post-e2e-test:
-	yarn test:coverage:report:ci
-	cp build/reports/cobertura-coverage.xml build/reports/code-coverage.xml
 
 js-pre-e2e-test:
 	mkdir -p build/reports
