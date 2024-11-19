@@ -18,10 +18,6 @@ JS_ESLINT_CONFIG ?= .eslintrc.js
 JS_COMMAND_RUNNER ?= yarn
 JS_TEST_COMMAND ?= jest
 
-js-pre-e2e-test:
-	mkdir -p build/reports
-	mkdir -p build/.nyc_output
-
 # include core makefile targets for release management
 -include .make/base.mk
 -include .make/oci.mk
