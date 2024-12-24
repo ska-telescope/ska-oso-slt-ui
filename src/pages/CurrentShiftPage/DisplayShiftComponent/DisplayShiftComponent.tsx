@@ -60,7 +60,7 @@ function DisplayShiftComponent() {
   const location = useLocation();
   const [inputValue, setInputValue] = React.useState('');
   const [openDialog, setOpenDialog] = React.useState(false);
-  const [interval, setItervalLogs] = useState(null);
+  const [interval, setIntervalLogs] = useState(null);
 
   const onEditShiftComment = (shiftCommentItem) => {
     setShiftCommentID(shiftCommentItem.id);
@@ -180,7 +180,7 @@ function DisplayShiftComponent() {
       const intervel = setInterval(() => {
         fetchShiftWithRecentLogs(response.data[0].shift_id);
       }, 10000);
-      setItervalLogs(intervel);
+      setIntervalLogs(intervel);
 
       // setShiftData(SHIFT_DATA_LIST[1]);
     }
@@ -195,7 +195,7 @@ function DisplayShiftComponent() {
       setTimeout(() => {
         setDisplayMessageElement(false);
       }, 3000);
-      if (response && response.data && response.data.length > 0) {
+      if (response && response.data != 'None' && response.data.length > 0) {
         setShiftId(response.data[0].shift_id);
         setOperator(response.data[0].shift_operator);
         setShiftData(
@@ -204,10 +204,10 @@ function DisplayShiftComponent() {
             : []
         );
         setDisableButton(false);
-        const intervel = setInterval(() => {
+        const interval = setInterval(() => {
           fetchShiftWithRecentLogs(response.data[0].shift_id);
         }, 10000);
-        setItervalLogs(intervel);
+        setIntervalLogs(interval);
       }
     }
   };
@@ -341,7 +341,7 @@ function DisplayShiftComponent() {
     setOpenViewImageModal(true);
     fetchImage(shiftCommentItem.id);
   };
-  const handlesetOpenSummaryModal = () => {
+  const handleSetOpenSummaryModal = () => {
     setShiftCommentID(null);
     setShiftComment('');
     setShiftCommentUpdate(false);
@@ -522,7 +522,7 @@ function DisplayShiftComponent() {
               ariaDescription="Button for submitting comment"
               label={t('label.addShiftComments')}
               testId="addShiftComments"
-              onClick={handlesetOpenSummaryModal}
+              onClick={handleSetOpenSummaryModal}
               variant={ButtonVariantTypes.Contained}
               color={ButtonColorTypes.Secondary}
             />
