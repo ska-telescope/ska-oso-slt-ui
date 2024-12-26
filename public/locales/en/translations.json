@@ -74,6 +74,7 @@
     "addShiftComments": "Add Shift summary",
     "addShiftAnnotations": "Add Shift Annotation",
     "updateShiftComments": "Update Shift comments",
+    "updateShiftAnnotations": "Update Shift Annotations",
     "viewShift": "View Shift ID",
     "view": "View details",
     "shiftNotStarted": "Shift not started yet",
