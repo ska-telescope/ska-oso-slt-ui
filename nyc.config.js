@@ -9,12 +9,7 @@ module.exports = {
   all: true,
   'check-coverage': true,
   exclude: [
-    '**/*.test.{js,jsx,ts,tsx}',
-    'src/pages/CurrentShiftPage/DisplayShiftComponent/DisplayShiftComponent.tsx',
-    'src/pages/ShiftHistoryPage/ShiftHistoryPage.tsx',
-    'src/pages/CurrentShiftPage/DisplayShiftLogsComponent/DisplayShiftLogsComponent.tsx',
-    'src/pages/ShiftHistoryPage/DisplayShiftHistory/ViewSLTHistoryByID/ViewSLTHistoryByID.tsx',
-    'src/pages/ShiftHistoryPage/DisplayShiftHistory/ViewSLTHistoryPreview/ViewSLTHistoryPreview.tsx',
+    '**/*.test.{js,jsx,ts,tsx}'
   ],
   reporter: ['cobertura', 'html', 'text'],
   'report-dir': COVERAGE_OUTPUT_DIR,
