@@ -30,7 +30,7 @@ const ViewSLTHistory = ({ shiftData, updatedList }: EntryFieldProps) => {
 
   return (
     <PreviewIcon
-      data-testid="iconViewShift"
+      data-testid={`iconViewShift${shiftData.id}`}
       style={{ cursor: 'pointer', marginTop: '10px' }}
       onClick={() => fetchSltHistoryByID()}
     />

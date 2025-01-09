@@ -59,7 +59,7 @@ const SearchByEbId = ({ setFilterCriteria, searchFilter }: EntryFieldProps) => {
           disabled={disableSearch()}
           color={ButtonColorTypes.Secondary}
           variant={ButtonVariantTypes.Contained}
-          testId="logHistorySearch"
+          testId="logHistorySearchBiEBID"
           label={t('label.searchById')}
           onClick={emmitOperator}
           toolTip={t('toolTip.button.idSearch')}

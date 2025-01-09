@@ -4,23 +4,49 @@ import { mount } from 'cypress/react18';
 import { THEME_DARK, THEME_LIGHT } from '@ska-telescope/ska-gui-components';
 import ShiftHistoryPage from './ShiftHistoryPage';
 import theme from '../../services/theme/theme';
+import { StoreProvider } from '@ska-telescope/ska-gui-local-storage';
+import { BrowserRouter } from 'react-router-dom';
+import { viewPort } from '../../utils/constants';
 
-describe('<ShiftHistoryPage />', () => {
-  it(`Theme ${THEME_DARK}: Renders ShiftHistoryPage`, () => {
-    mount(
-      <ThemeProvider theme={theme(THEME_DARK)}>
-        <CssBaseline />
-        <ShiftHistoryPage />
-      </ThemeProvider>
-    );
-  });
+const THEME = [THEME_DARK, THEME_LIGHT];
 
-  it(`Theme ${THEME_LIGHT}: Renders ShiftHistoryPage`, () => {
-    mount(
-      <ThemeProvider theme={theme(THEME_LIGHT)}>
+function mounting(theTheme) {
+  viewPort();
+  cy.mount(
+    <StoreProvider>
+      <ThemeProvider theme={theme(theTheme)}>
         <CssBaseline />
+        <BrowserRouter>
         <ShiftHistoryPage />
+        </BrowserRouter>
       </ThemeProvider>
-    );
-  });
+    </StoreProvider>
+  );
+}
+
+describe('<DisplayShiftComponent />', () => {
+  for (const theTheme of THEME) {
+    it(`Theme ${theTheme}: Renders`, () => {
+      mounting(theTheme);
+    });
+  }
 });
+// describe('<ShiftHistoryPage />', () => {
+//   it(`Theme ${THEME_DARK}: Renders ShiftHistoryPage`, () => {
+//     mount(
+//       <ThemeProvider theme={theme(THEME_DARK)}>
+//         <CssBaseline />
+//         <ShiftHistoryPage />
+//       </ThemeProvider>
+//     );
+//   });
+
+//   it(`Theme ${THEME_LIGHT}: Renders ShiftHistoryPage`, () => {
+//     mount(
+//       <ThemeProvider theme={theme(THEME_LIGHT)}>
+//         <CssBaseline />
+//         <ShiftHistoryPage />
+//       </ThemeProvider>
+//     );
+//   });
+// });
