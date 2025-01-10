@@ -95,7 +95,7 @@ const SearchByDates = ({ setFilterCriteria, searchFilter }: EntryFieldProps) => 
           disabled={disableSearch()}
           color={ButtonColorTypes.Secondary}
           variant={ButtonVariantTypes.Contained}
-          testId="logHistorySearch"
+          testId="logHistorySearchByDates"
           label={t('label.searchById')}
           onClick={setDates}
           toolTip={t('toolTip.button.idSearch')}
