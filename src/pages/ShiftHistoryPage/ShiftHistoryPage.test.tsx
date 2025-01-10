@@ -24,7 +24,7 @@ function mounting(theTheme) {
   );
 }
 
-describe('<DisplayShiftComponent />', () => {
+describe('<ShiftHistoryPage />', () => {
   const data = [SHIFT_DATA_LIST];
   beforeEach(() => {
     cy.intercept(

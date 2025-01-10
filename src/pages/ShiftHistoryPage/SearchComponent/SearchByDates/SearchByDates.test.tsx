@@ -41,8 +41,8 @@ describe('<DisplayShiftComponent />', () => {
         cy.get('[data-testid="dateEntryStart"]').click({ force: true });
         cy.get('[data-testid="dateEntryEnd"]').should('be.visible');
         cy.get('[data-testid="dateEntryEnd"]').click({ force: true });
-        cy.get('[data-testid="logHistorySearch"]').should('be.visible');
-        cy.get('[data-testid="logHistorySearch"]').click({ force: true });
+        cy.get('[data-testid="logHistorySearchByDates"]').should('be.visible');
+        cy.get('[data-testid="logHistorySearchByDates"]').click({ force: true });
       });
     });
   }
