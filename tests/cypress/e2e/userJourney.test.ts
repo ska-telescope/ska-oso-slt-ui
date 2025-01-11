@@ -226,7 +226,7 @@ context('Shift Log Tool', () => {
     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
     cy.get('[data-testid="dateEntryStart"]').type(startDate);
     cy.get('[data-testid="dateEntryEnd"]').type(endDate);
-    cy.get('[data-testid="logHistorySearch"]').click();
+    cy.get('[data-testid="logHistorySearchByDates"]').click();
     validateShiftLogDataTable();
   });
 
@@ -260,7 +260,7 @@ context('Shift Log Tool', () => {
     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
     cy.get('[data-testid="dateEntryStart"]').type(startDate);
     cy.get('[data-testid="dateEntryEnd"]').type(endDate);
-    cy.get('[data-testid="logHistorySearch"]').click();
+    cy.get('[data-testid="logHistorySearchByDates"]').click();
     validateShiftLogView();
   });
 
@@ -271,9 +271,7 @@ context('Shift Log Tool', () => {
     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
     cy.get('[data-testid="dateEntryStart"]').type(startDate);
     cy.get('[data-testid="dateEntryEnd"]').type(endDate);
-    cy.get('[data-testid="logHistorySearch"]').click({ force: true });
-
-    cy.wait(waitTime);
+    cy.get('[data-testid="logHistorySearchByDates"]').click({ force: true });
 
     cy.get('body').then((ele) => {
       if (ele.find('[data-testid="sltHistoryTable"]').length > 0) {
