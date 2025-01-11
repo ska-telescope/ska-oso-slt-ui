@@ -29,12 +29,12 @@ describe('<ShiftHistoryPage />', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts?query_type=created_between&shift_start=2025-01-09%2018:30:00.000000&shift_end=2025-01-10%2018:29:59.999000',
+      'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts?query_type=created_between&shift_start=2025-01-10%2018:30:00.000000&shift_end=2025-01-11%2018:29:59.999000',
       {
         statusCode: 200,
         body: data
       }
-    ).as('getData');
+    ).as('getDataByToday');
   });
 
 
@@ -42,30 +42,29 @@ describe('<ShiftHistoryPage />', () => {
     it(`Theme ${theTheme}: Renders`, () => {
       mounting(theTheme);
         cy.get('body').then(() => {
-          cy.wait('@getData');
-
+          
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.wait(3000);
+          cy.wait('@getDataByToday');
           cy.get('[data-testid="logSearchBy"]').click()
           cy.contains('Search by operator').click({ force: true });
           cy.get('[data-testid="operatorName"]').type('DefaultUser');
           cy.get('[data-testid="logHistorySearchByOperator"]').click({ force: true });
-
+          
           cy.get('[data-testid="logSearchBy"]').click()
           cy.contains('Search by status').click({ force: true });
           cy.get('[data-testid="sbiStatus"]').type('Created');
           cy.get('[data-testid="logHistorySearchByStatus"]').click({ force: true });
-
 
           cy.get('[data-testid="logSearchBy"]').click()
           cy.contains('Search by EB ID').click({ force: true });
           cy.get('[data-testid="EbId"]').type('eb-t0001-20240822-00009');
           cy.get('[data-testid="logHistorySearchByEBID"]').click({ force: true });
            
-
           cy.get('[data-testid="logSearchBy"]').click()
           cy.contains('Search by SBI ID').click({ force: true });
           cy.get('[data-testid="sbiId"]').type('sbi-t0001-20240822-00009');
           cy.get('[data-testid="logHistorySearchBySbiID"]').click({ force: true });
-
 
        
         });
