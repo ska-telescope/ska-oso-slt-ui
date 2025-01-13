@@ -6,7 +6,7 @@ import theme from '../../../services/theme/theme';
 import DisplayShiftLogsComponent from './DisplayShiftLogsComponent';
 
 import { StoreProvider } from '@ska-telescope/ska-gui-local-storage';
-import { viewPort } from '../../../utils/constants';
+import { SKA_SLT_API_URL, viewPort } from '../../../utils/constants';
 import SHIFT_DATA_LIST from '../../../DataModels/DataFiles/ShiftDataList';
 
 const THEME = [THEME_DARK, THEME_LIGHT];
@@ -43,25 +43,17 @@ describe('<DisplayShiftLogsComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].shift_logs[0]['comments']];
-    cy.intercept(
-      'POST',
-      'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_log_comments',
-      {
-        statusCode: 200,
-        body: { ...data }
-      }
-    ).as('postComment');
+    cy.intercept('POST', `${SKA_SLT_API_URL}/shift_log_comments`, {
+      statusCode: 200,
+      body: { ...data }
+    }).as('postComment');
   });
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].shift_logs[0]['comments']];
-    cy.intercept(
-      'PUT',
-      'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_log_comments/1',
-      {
-        statusCode: 200,
-        body: { ...data }
-      }
-    ).as('putComment');
+    cy.intercept('PUT', `${SKA_SLT_API_URL}/shift_log_comments/1`, {
+      statusCode: 200,
+      body: { ...data }
+    }).as('putComment');
   });
   it('shiftStartButton', () => {
     cy.get('body').then((element) => {

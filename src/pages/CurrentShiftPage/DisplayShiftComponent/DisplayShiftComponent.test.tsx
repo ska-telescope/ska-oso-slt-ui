@@ -5,7 +5,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { THEME_DARK, THEME_LIGHT } from '@ska-telescope/ska-gui-components';
 import theme from '../../../services/theme/theme';
 import DisplayShiftComponent from './DisplayShiftComponent';
-import { viewPort } from '../../../utils/constants';
+import { SKA_SLT_API_URL, viewPort } from '../../../utils/constants';
 import { StoreProvider } from '@ska-telescope/ska-gui-local-storage';
 import { BrowserRouter } from 'react-router-dom';
 import SHIFT_DATA_LIST from '../../../DataModels/DataFiles/ShiftDataList';
@@ -41,7 +41,7 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].comments];
-    cy.intercept('POST', 'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_comment', {
+    cy.intercept('POST', `${SKA_SLT_API_URL}/shift_comment`, {
       statusCode: 200,
       body: { ...data }
     }).as('postComment');
@@ -49,7 +49,7 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST];
-    cy.intercept('POST', 'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts/create', {
+    cy.intercept('POST', `${SKA_SLT_API_URL}/shifts/create`, {
       statusCode: 200,
       body: { ...data }
     }).as('startNewShift');
@@ -57,14 +57,10 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [SHIFT_DATA_LIST[0]];
-    cy.intercept(
-      'GET',
-      'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift?shift_id=slt-20250106-11785506',
-      {
-        statusCode: 200,
-        body: data
-      }
-    ).as('getDataById');
+    cy.intercept('GET', `${SKA_SLT_API_URL}/shift?shift_id=slt-20250106-11785506`, {
+      statusCode: 200,
+      body: data
+    }).as('getDataById');
   });
 
   it('shiftStartButton', () => {

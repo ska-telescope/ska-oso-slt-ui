@@ -6,7 +6,7 @@ import theme from '../../services/theme/theme';
 import { StoreProvider } from '@ska-telescope/ska-gui-local-storage';
 import { BrowserRouter } from 'react-router-dom';
 import SHIFT_DATA_LIST from '../../DataModels/DataFiles/ShiftDataList';
-import { viewPort } from '../../utils/constants';
+import { getTodayDateRange, SKA_SLT_API_URL, viewPort } from '../../utils/constants';
 
 const THEME = [THEME_DARK, THEME_LIGHT];
 
@@ -29,7 +29,7 @@ describe('<ShiftHistoryPage />', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      'http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts?query_type=created_between&shift_start=2025-01-10%2018:30:00.000000&shift_end=2025-01-11%2018:29:59.999000',
+      `${SKA_SLT_API_URL}/shifts?query_type=created_between&&shift_start=${getTodayDateRange.start}&shift_end=${getTodayDateRange.end}`,
       {
         statusCode: 200,
         body: data
