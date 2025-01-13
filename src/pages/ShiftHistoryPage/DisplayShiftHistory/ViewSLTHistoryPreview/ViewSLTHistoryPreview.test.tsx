@@ -23,7 +23,7 @@ function mounting(theTheme) {
 
 describe('<DisplayShiftComponent />', () => {
   beforeEach(() => {
-    cy.intercept('GET', `${SKA_SLT_API_URL}/shift?shift_id=slt-20250106-11785506`, {
+    cy.intercept('GET', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift?shift_id=slt-20250106-11785506`, {
       statusCode: 200,
       body: { status: '200', data: SHIFT_DATA_LIST[0] }
     }).as('getData');

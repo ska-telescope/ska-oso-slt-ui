@@ -37,7 +37,7 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].annotations];
-    cy.intercept('POST', `${SKA_SLT_API_URL}/shift_annotation`, {
+    cy.intercept('POST', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_annotation`, {
       statusCode: 200,
       body: { ...data }
     }).as('postAnnotation');
@@ -45,7 +45,7 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [SHIFT_DATA_LIST[0]['annotations']];
-    cy.intercept('GET', `${SKA_SLT_API_URL}/shift_annotation?shift_id=slt-20250106-11785506`, {
+    cy.intercept('GET', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_annotation?shift_id=slt-20250106-11785506`, {
       statusCode: 200,
       body: data
     }).as('getDataById');

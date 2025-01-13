@@ -29,7 +29,7 @@ describe('<ShiftHistoryPage />', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      `${SKA_SLT_API_URL}/shifts?query_type=created_between&&shift_start=${getTodayDateRange.start}&shift_end=${getTodayDateRange.end}`,
+      `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts?query_type=created_between&&shift_start=${getTodayDateRange.start}&shift_end=${getTodayDateRange.end}`,
       {
         statusCode: 200,
         body: data

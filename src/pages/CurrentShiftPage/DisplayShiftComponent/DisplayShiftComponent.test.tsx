@@ -41,7 +41,7 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].comments];
-    cy.intercept('POST', `${SKA_SLT_API_URL}/shift_comment`, {
+    cy.intercept('POST', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_comment`, {
       statusCode: 200,
       body: { ...data }
     }).as('postComment');
@@ -49,21 +49,21 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST];
-    cy.intercept('POST', `${SKA_SLT_API_URL}/shifts/create`, {
+    cy.intercept('POST', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts/create`, {
       statusCode: 200,
       body: { ...data }
     }).as('startNewShift');
   });
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].comments];
-    cy.intercept('PUT',  `${SKA_SLT_API_URL}/shift_comment/2`, {
+    cy.intercept('PUT',  `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_comment/2`, {
       statusCode: 200,
       body: { ...data }
     }).as('putComment');
   });
   beforeEach(() => {
     const data = [SHIFT_DATA_LIST[0]];
-    cy.intercept('GET', `${SKA_SLT_API_URL}/shift?shift_id=slt-20250106-11785506`, {
+    cy.intercept('GET', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift?shift_id=slt-20250106-11785506`, {
       statusCode: 200,
       body: data
     }).as('getDataById');

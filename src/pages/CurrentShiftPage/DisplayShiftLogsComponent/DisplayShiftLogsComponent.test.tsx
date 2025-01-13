@@ -43,14 +43,14 @@ describe('<DisplayShiftLogsComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].shift_logs[0]['comments']];
-    cy.intercept('POST', `${SKA_SLT_API_URL}/shift_log_comments`, {
+    cy.intercept('POST', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_log_comments`, {
       statusCode: 200,
       body: { ...data }
     }).as('postComment');
   });
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST[0].shift_logs[0]['comments']];
-    cy.intercept('PUT', `${SKA_SLT_API_URL}/shift_log_comments/1`, {
+    cy.intercept('PUT', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_log_comments/1`, {
       statusCode: 200,
       body: { ...data }
     }).as('putComment');
