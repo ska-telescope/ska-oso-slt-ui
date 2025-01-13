@@ -54,7 +54,13 @@ describe('<DisplayShiftComponent />', () => {
       body: { ...data }
     }).as('startNewShift');
   });
-
+  beforeEach(() => {
+    const data = [...SHIFT_DATA_LIST[0].comments];
+    cy.intercept('PUT',  `${SKA_SLT_API_URL}/shift_comment/2`, {
+      statusCode: 200,
+      body: { ...data }
+    }).as('putComment');
+  });
   beforeEach(() => {
     const data = [SHIFT_DATA_LIST[0]];
     cy.intercept('GET', `${SKA_SLT_API_URL}/shift?shift_id=slt-20250106-11785506`, {
@@ -84,6 +90,7 @@ describe('<DisplayShiftComponent />', () => {
         cy.get('[data-testid="shiftCommentModalClose"]').click({ force: true });
         cy.get('[data-testid="editShifComment"]').click({ force: true, multiple: true });
         cy.get('[data-testid="shiftCommentButton"]').click({ force: true });
+        cy.wait('@putComment');
         cy.get('[data-testid="shiftCommentModalClose"]').click({ force: true });
         //
       }
