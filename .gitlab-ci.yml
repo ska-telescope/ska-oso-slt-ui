@@ -1,3 +1,6 @@
+default:
+  image: node:21-slim
+
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   KUBE_HOST: 'https://k8s.stfc.skao.int'
@@ -28,13 +31,13 @@ js-test:
 
 #Install basic dependencies using yarn
 install_dependencies:
-  image: node:${JS_NODE_VERSION}
   stage: dependencies
   tags:
     - k8srunner
   before_script:
     - rm -rf node_modules
   script:
+    - npm config set registry https://registry.npmjs.org/
     - yarn install --immutable
   cache:
     paths:
@@ -43,10 +46,9 @@ install_dependencies:
 
 #Run the static code analysis
 code_analysis:
-  image: node:${JS_NODE_VERSION}
   stage: lint
   tags:
-    - ska-default
+    - k8srunner
   cache:
     paths:
       - node_modules/
@@ -54,25 +56,25 @@ code_analysis:
   before_script:
     - mkdir -p build/reports
   script:
+    - npm config set registry https://registry.npmjs.org/
     - yarn install --immutable
     - yarn code-analysis
     - mv linting.xml build/reports/linting.xml
   artifacts:
     paths:
       - build/
-    reports:
-      junit: build/reports/linting.xml
 
 # run the cypress test coverage reports
 test_and_coverage:
   image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
   stage: test
   tags:
-    - ska-default
+    - k8srunner
   before_script:
     - rm -rf node_modules
     - mkdir -p build/reports
     - mkdir -p build/.nyc_output
+    - apt update && apt -y install make
     - yarn install --immutable
   script:
     - yarn start &
@@ -80,18 +82,28 @@ test_and_coverage:
     - yarn test:coverage:report:ci
     - mv build/reports/cobertura-coverage.xml build/reports/code-coverage.xml
 
+  coverage: /All\sfiles.*?\s+(\d+.\d+)/
+  cache:
+    paths:
+      - node_modules/
+      - .cache/Cypress
+    policy: pull
+  artifacts:
+    paths:
+      - build/
+
 # list the current top level dependencies for the project
 list_dependencies:
-  image: node:${JS_NODE_VERSION}
   stage: test
   tags:
-    - ska-default
+    - k8srunner
   allow_failure: true
   cache:
     paths:
       - node_modules/
     policy: pull
   script:
+    - npm config set registry https://registry.npmjs.org/
     - yarn install --immutable
     - yarn list --depth=0 --json >> npm_deps.json
     - yarn list --depth=0  >> npm_deps.txt
@@ -103,10 +115,14 @@ list_dependencies:
       - .public
 
 test-counts:
-  image: cypress/browsers:node-20.12.2-chrome-124.0.6367.155-1-ff-125.0.3-edge-124.0.2478.80-1
+  image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
   stage: test
   tags:
-    - ska-default
+    - k8srunner
+  cache:
+    paths:
+      - node_modules/
+    policy: pull
   before_script:
     - rm -rf node_modules
     - mkdir -p build/tests
@@ -120,15 +136,15 @@ test-counts:
 
 # Build the application
 build:
-  image: node:${JS_NODE_VERSION}
   stage: build
   tags:
-    - ska-default
+    - k8srunner
   cache:
     paths:
       - node_modules/
     policy: pull
   script:
+    - npm config set registry https://registry.npmjs.org/
     - yarn install --immutable
     - yarn build
 
@@ -136,7 +152,7 @@ build:
 pages:
   stage: pages
   tags:
-    - ska-default
+    - k8srunner
   dependencies:
     - test-counts
     - test_and_coverage
@@ -151,7 +167,7 @@ pages:
       - public
     expire_in: 30 days
 
-######################### SLT SPECIFIC STUFF BELOW HERE #################################
+########################## SLT SPECIFIC STUFF BELOW HERE #################################
 
 .info_script: &info_script
   - |-
@@ -165,7 +181,6 @@ pages:
 .dev_env: &dev_env
   variables:
     KUBE_NAMESPACE: 'dev-$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG'
-
   environment:
     name: 'dev-$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG'
 
@@ -184,8 +199,6 @@ info-staging:
 
 deploy-dev-environment:
   <<: *dev_env
-  before_script:
-    - KUBE_HOST=https://k8s.stfc.skao.int
 
 test-dev-environment:
   <<: *dev_env
@@ -193,27 +206,25 @@ test-dev-environment:
 stop-dev-environment:
   <<: *dev_env
 
-helm-chart-build:
-  allow_failure: true
-
 ########################## SLT SPECIFIC STUFF ABOVE HERE #################################
 
 include:
   - template: Code-Quality.gitlab-ci.yml
   - template: 'Verify/Accessibility.gitlab-ci.yml'
-  # TS linting and unit testing
-  - project: 'ska-telescope/templates-repository'
-    file: 'gitlab-ci/includes/js.gitlab-ci.yml'
   # Docs pages
   - project: 'ska-telescope/templates-repository'
     file: 'gitlab-ci/includes/docs.gitlab-ci.yml'
+
+    # TS linting and unit testing
+  - project: 'ska-telescope/templates-repository'
+    file: 'gitlab-ci/includes/js.gitlab-ci.yml'
     # OCI Images
   - project: 'ska-telescope/templates-repository'
     file: 'gitlab-ci/includes/oci-image.gitlab-ci.yml'
     # Tag Based GitLab Release Management
   - project: 'ska-telescope/templates-repository'
     file: 'gitlab-ci/includes/release.gitlab-ci.yml'
-    # .post step finalizers eg: badges
+    # .post step finalisers eg: badges
   - project: 'ska-telescope/templates-repository'
     file: 'gitlab-ci/includes/finaliser.gitlab-ci.yml'
     # helm chart
@@ -227,10 +238,10 @@ code_quality:
   # https://docs.gitlab.com/ee/user/project/merge_requests/code_quality.html#generate-an-html-report
   artifacts:
     paths: [gl-code-quality-report.json]
-  # disable dind service as it's not needed for ska-default runners
+  # disable dind service as it's not needed for k8srunner runners
   services: []
   tags:
-    - ska-default
+    - k8srunner
   # We need to merge the rules with what we have here on template rules
   # https://gitlab.com/ska-telescope/templates-repository/-/blob/master/gitlab-ci/includes/rules.gitlab-ci.yml
   # https://docs.gitlab.com/ee/user/project/merge_requests/code_quality.html#using-with-merge-request-pipelines
