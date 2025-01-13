@@ -5,7 +5,7 @@ import { THEME_DARK, THEME_LIGHT } from '@ska-telescope/ska-gui-components';
 import theme from '../../../services/theme/theme';
 import ViewShiftData from './ViewShiftData';
 import SHIFT_DATA_LIST from '../../../DataModels/DataFiles/ShiftDataList';
-import { SKA_SLT_API_URL, viewPort } from '../../../utils/constants';
+import { viewPort } from '../../../utils/constants';
 import { StoreProvider } from '@ska-telescope/ska-gui-local-storage';
 
 const THEME = [THEME_DARK, THEME_LIGHT];
@@ -45,10 +45,14 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [SHIFT_DATA_LIST[0]['annotations']];
-    cy.intercept('GET', `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_annotation?shift_id=slt-20250106-11785506`, {
-      statusCode: 200,
-      body: data
-    }).as('getDataById');
+    cy.intercept(
+      'GET',
+      `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shift_annotation?shift_id=slt-20250106-11785506`,
+      {
+        statusCode: 200,
+        body: data
+      }
+    ).as('getDataById');
   });
 
   it('View Shift Annotation Functionality', () => {

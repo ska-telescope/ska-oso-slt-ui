@@ -6,7 +6,7 @@ import theme from '../../services/theme/theme';
 import { StoreProvider } from '@ska-telescope/ska-gui-local-storage';
 import { BrowserRouter } from 'react-router-dom';
 import SHIFT_DATA_LIST from '../../DataModels/DataFiles/ShiftDataList';
-import { getTodayDateRange, SKA_SLT_API_URL, viewPort } from '../../utils/constants';
+import { getTodayDateRange, viewPort } from '../../utils/constants';
 
 const THEME = [THEME_DARK, THEME_LIGHT];
 
