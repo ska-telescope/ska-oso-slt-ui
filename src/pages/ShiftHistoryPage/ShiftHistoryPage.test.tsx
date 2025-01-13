@@ -29,7 +29,7 @@ describe('<ShiftHistoryPage />', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts?query_type=created_between&&shift_start=${getTodayDateRange.start}&shift_end=${getTodayDateRange.end}`,
+      `http://127.0.0.1:8000/ska-oso-slt-services/slt/api/v0/shifts?query_type=created_between&shift_start=2025-01-09%2018:30:00.000000&shift_end=2025-01-10%2018:29:59.999000`,
       {
         statusCode: 200,
         body: data
@@ -43,7 +43,6 @@ describe('<ShiftHistoryPage />', () => {
       cy.get('body').then(() => {
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(3000);
-        cy.wait('@getDataByToday');
         cy.get('[data-testid="logSearchBy"]').click();
         cy.contains('Search by operator').click({ force: true });
         cy.get('[data-testid="operatorName"]').type('DefaultUser');
