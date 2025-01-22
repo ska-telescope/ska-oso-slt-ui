@@ -30,7 +30,7 @@ js-test:
 
 #Install basic dependencies using yarn
 install_dependencies:
-  image: node:22
+  image: node:${JS_NODE_VERSION}
   stage: dependencies
   tags:
     - ska-default
