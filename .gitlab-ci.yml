@@ -1,3 +1,6 @@
+default:
+  image: node:20-slim
+
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   KUBE_HOST: 'https://k8s.stfc.skao.int'
@@ -33,7 +36,7 @@ install_dependencies:
   image: node:${JS_NODE_VERSION}
   stage: dependencies
   tags:
-    - ska-default
+    - k8srunner
   before_script:
     - rm -rf node_modules
   script:
@@ -46,9 +49,10 @@ install_dependencies:
 
 #Run the static code analysis
 code_analysis:
+  image: node:${JS_NODE_VERSION}
   stage: lint
   tags:
-    - k8srunner
+    - ska-default
   cache:
     paths:
       - node_modules/
