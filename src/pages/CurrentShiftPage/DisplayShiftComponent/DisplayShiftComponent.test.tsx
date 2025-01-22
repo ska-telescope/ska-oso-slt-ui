@@ -41,7 +41,7 @@ describe('<DisplayShiftComponent />', () => {
 
   // beforeEach(() => {
   //   const data = [...SHIFT_DATA_LIST[0].comments];
-    
+
   //   cy.intercept('POST', `${window.env.BACKEND_URL}/shift_comment`, {
   //     statusCode: 200,
   //     body: { ...data }
