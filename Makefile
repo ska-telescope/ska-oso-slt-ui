@@ -48,6 +48,7 @@ set-absolute-paths:
 	BASE_URL="/" INDEX_FILE=./dist/index.html ./scripts/set_absolute_paths.sh
 
 js-do-test:
+	BACKEND_URL=$(BACKEND_URL)
 	@mkdir -p $(JS_BUILD_REPORTS_DIRECTORY)
 	@rm -rf ./build/tests/unit*.xml
 	@{ \

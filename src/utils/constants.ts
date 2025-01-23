@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { env } from '../env';
-
+export const SKA_PTT_API_URL = env.BACKEND_URL;
 export const USE_LOCAL_DATA = env.REACT_APP_USE_LOCAL_DATA === 'true';
 
 export const SPACER = 50;
