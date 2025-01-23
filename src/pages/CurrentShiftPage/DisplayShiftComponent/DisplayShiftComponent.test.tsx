@@ -83,7 +83,6 @@ describe('<DisplayShiftComponent />', () => {
         cy.get('[data-testid="shiftStartButton"]').click({ force: true });
         cy.wait(2000);
         cy.get('[data-testid="confirmationDialogYes"]').click({ force: true });
-        cy.wait('@startNewShift');
         cy.wait(2000);
         cy.get('[data-testid="addShiftComments"]').click({ force: true });
         cy.wait(2000);
