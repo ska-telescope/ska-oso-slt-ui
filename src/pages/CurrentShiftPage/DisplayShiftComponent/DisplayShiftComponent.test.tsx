@@ -50,7 +50,7 @@ describe('<DisplayShiftComponent />', () => {
 
   beforeEach(() => {
     const data = [...SHIFT_DATA_LIST];
-    cy.intercept('POST', `${window.env.BACKEND_URL}/shifts/create`, {
+    cy.intercept('POST', '**/shifts/create', {
       statusCode: 200,
       body: { ...data }
     }).as('startNewShift');
