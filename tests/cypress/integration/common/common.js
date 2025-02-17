@@ -10,21 +10,21 @@ if (language === 'English') {
 }
 
 export const CheckManageShiftPresentOrNot = () => {
-  cy.get('[data-testid="manageShift"]').contains(translation.label.manageShift);
+  cy.get('[data-testid="manageShift1"]').contains(translation.label.manageShift);
 };
 
 export const CheckHistoryButtonPresentOrNot = () => {
-  cy.get('[data-testid="historyButton"]').contains(translation.label.history);
+  cy.get('[data-testid="historyButton1"]').contains(translation.label.history);
 };
 
 export const SelectOperatorName = () => {
-  cy.get('[data-testid="operatorName"]').click({ force: true });
-  cy.get('[data-testid="operatorName"]').type('DefaultUser');
+  cy.get('[data-testid="operatorName1"]').click({ force: true });
+  cy.get('[data-testid="operatorNa2me"]').type('DefaultUser');
 };
 
 export const PressShiftStartButton = () => {
-  cy.get('[data-testid="shiftStartButton"]').contains(translation.label.shiftStart);
-  cy.get('[data-testid="shiftStartButton"]').click({ force: true });
+  cy.get('[data-testid="shiftStart4Button"]').contains(translation.label.shiftStart);
+  cy.get('[data-testid="shiftStartButtton"]').click({ force: true });
 };
 
 export const PressConfirmationDialog = () => {
