@@ -2867,7 +2867,7 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/merge-streams/-/merge-streams-2.3.0.tgz#719df7fb41766bc143369eaa0dd56d8dc87c9958"
   integrity sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==
 
-"@ska-telescope/ska-gui-components@^2.0.20", "@ska-telescope/ska-gui-components@^2.2.2":
+"@ska-telescope/ska-gui-components@^2.2.2", "@ska-telescope/ska-gui-components@^2.3.2":
   version "2.3.2"
   resolved "https://artefact.skao.int/repository/npm-internal/@ska-telescope/ska-gui-components/-/ska-gui-components-2.3.2.tgz#cc43b4ef11df0c17f0fba436a35a43c8edd7ed15"
   integrity sha512-cLr7GjqPHok/c9TE0YpaC9PH3TKSq7Z/KU+8L1TI1DbPmJTe73muFkaoeJf8pqT8+19ykfpaX9riZELhqCy/0A==
@@ -2886,7 +2886,7 @@
     typescript "5.5.3"
     uuid "^11.1.0"
 
-"@ska-telescope/ska-gui-local-storage@^2.0.0":
+"@ska-telescope/ska-gui-local-storage@^2.0.4":
   version "2.0.4"
   resolved "https://artefact.skao.int/repository/npm-internal/@ska-telescope/ska-gui-local-storage/-/ska-gui-local-storage-2.0.4.tgz#27a7086f132b8fe4a2b26984e422d2d7e94332cd"
   integrity sha512-va2sMgXydUHHyHZURBfnHjJNKLesfetq2zIxugzHMOwBvzLM9Dp+6s0d35ljQC7vf/5Y2YL+SJxOsS5cEYbZCQ==
