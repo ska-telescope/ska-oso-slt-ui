@@ -65,6 +65,10 @@ module.exports = () => {
             loader: 'babel-loader',
           },
         },
+        {
+          test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+          type: 'asset/resource',
+        },
       ],
     },
 
@@ -145,12 +149,27 @@ module.exports = () => {
             eager: true,
           },
           // SKAO components
+          '@ska-telescope/ska-login-page': {
+            requiredVersion: deps['@ska-telescope/ska-login-page'],
+            eager: true,
+          },
           '@ska-telescope/ska-gui-components': {
             requiredVersion: deps['@ska-telescope/ska-gui-components'],
             eager: true,
           },
           '@ska-telescope/ska-gui-local-storage': {
             requiredVersion: deps['@ska-telescope/ska-gui-local-storage'],
+            eager: true,
+          },
+          // MS Entra components
+          '@azure/msal-browser': {
+            requiredVersion: deps['@azure/msal-browser'],
+            singleton: true,
+            eager: true,
+          },
+          '@azure/msal-react': {
+            requiredVersion: deps['@azure/msal-react'],
+            singleton: true,
             eager: true,
           },
           // mixture

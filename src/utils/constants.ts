@@ -1,6 +1,10 @@
 import moment from 'moment';
 import { env } from '../env';
 
+// TBD : for now MS details are hard codded
+export const MSENTRA_CLIENT_ID = '45ba692e-0594-4de7-9f8a-39484b319ec5';
+export const MSENTRA_TENANT_ID = '78887040-bad7-494b-8760-88dcacfb3805';
+export const MSENTRA_REDIRECT_URI = 'http://localhost:8090/';
 export const USE_LOCAL_DATA = env.REACT_APP_USE_LOCAL_DATA === 'true';
 export const SKA_PTT_API_URL = env.BACKEND_URL;
 export const SPACER = 50;
