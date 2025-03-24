@@ -1,5 +1,5 @@
 default:
-  image: node:21-slim
+  image: node:20-slim
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
