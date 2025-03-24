@@ -142,7 +142,12 @@ module.exports = () => {
             requiredVersion: deps['i18next-http-backend'],
           },
           // Material UI
-          '@mui/material': { singleton: true, requiredVersion: deps['@mui/material'], eager: true },
+          '@mui/material': {
+            singleton: true,
+            version: deps['@mui/material'],
+            requiredVersion: deps['@mui/material'],
+            eager: true,
+          },
           '@mui/icons-material': {
             singleton: true,
             requiredVersion: deps['@mui/icons-material'],
