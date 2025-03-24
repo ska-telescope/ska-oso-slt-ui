@@ -27,8 +27,6 @@ export default defineConfig({
     baseUrl: 'http://localhost:8090',
     supportFile: 'tests/cypress/support/e2e.js',
     defaultCommandTimeout: 10000,
-    deleteVideoOnPassed: true,
-    betterRetries: true,
     reporter: 'cypress-xray-junit-reporter',
     reporterOptions: {
       mochaFile: './report/[suiteName].xml',
