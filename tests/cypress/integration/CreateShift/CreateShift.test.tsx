@@ -8,7 +8,7 @@ import {
   AddShiftComment,
 } from '../common/common';
 
-// Skipping thgis test as it will be fixed post authentiation & permission implementation
+// Skipping test as it will be fixed post authentiation & permission implementation
 describe.skip('Creating Shift', () => {
   it('should create a new shift', { jiraKey: 'XTP-75132' }, () => {
     CheckManageShiftPresentOrNot();
