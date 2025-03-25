@@ -1,10 +1,14 @@
 import { useIsAuthenticated, useMsal } from '@azure/msal-react';
 import { Button, Typography, Alert, Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { loginRequest } from '../../authConfig';
 const logo = require('../../assets/skao-logo-original.svg') as string;
+
+const loginRequest = {
+  scopes: ['User.Read']
+};
 
 /**
  * Login Component
@@ -15,6 +19,7 @@ const logo = require('../../assets/skao-logo-original.svg') as string;
  * Uses MSAL for authentication with Azure AD and MUI for styling.
  */
 const Login: React.FC = () => {
+  const { t } = useTranslation('translations');
   const isAuthenticated = useIsAuthenticated();
   const { instance } = useMsal();
   const [error, setError] = React.useState<string | null>(null);
@@ -81,7 +86,7 @@ const Login: React.FC = () => {
           }}
           data-testid="portal-title"
         >
-          Shift Log Tool
+          {t('label.appTitle')}
         </Typography>
         {error && (
           // Displays error message if login fails
@@ -102,7 +107,7 @@ const Login: React.FC = () => {
           onClick={handleLogin}
           data-testid="login-button"
         >
-          Sign In
+          {t('label.signin')}
         </Button>
       </Box>
     </Box>

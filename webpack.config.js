@@ -154,6 +154,10 @@ module.exports = () => {
             eager: true,
           },
           // SKAO components
+          '@ska-telescope/ska-login-page': {
+            requiredVersion: deps['@ska-telescope/ska-login-page'],
+            eager: true,
+          },
           '@ska-telescope/ska-gui-components': {
             requiredVersion: deps['@ska-telescope/ska-gui-components'],
             eager: true,

@@ -19,7 +19,7 @@ function mount(theTheme) {
           <Login />
         </BrowserRouter>
       </ThemeProvider>
-    </StoreProvider>,
+    </StoreProvider>
   );
 }
 
@@ -40,7 +40,7 @@ describe('<Login/>', () => {
 
   it('should display the page title', () => {
     cy.get('h3').should('have.length', 1);
-    cy.get('h3').contains('Shift Log Tool');
+    cy.get('h3').contains('label.appTitle');
   });
 
   it('should login button', () => {

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { PublicClientApplication } from '@azure/msal-browser';
-import { MsalProvider, useIsAuthenticated, useMsal } from '@azure/msal-react';
+import { useIsAuthenticated, useMsal } from '@azure/msal-react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import {
@@ -15,14 +14,10 @@ import theme from '../../services/theme/theme';
 import Loader from '../Loader/Loader';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from '../Login/Login';
-import { msalConfig } from '../../authConfig';
 import DisplayShiftComponent from '../../pages/CurrentShiftPage/DisplayShiftComponent/DisplayShiftComponent';
 import { USE_LOCAL_DATA } from '../../utils/constants';
 
-// Initialize MSAL instance
-const msalInstance = new PublicClientApplication(msalConfig);
-
-const HEADER_HEIGHT = 70;
+const HEADER_HEIGHT = 90;
 const FOOTER_HEIGHT = 20;
 
 const AppContent = () => {
@@ -117,16 +112,14 @@ const AppContent = () => {
 const App = () => {
   const { themeMode } = storageObject.useStore();
   return (
-    <MsalProvider instance={msalInstance}>
-      <ThemeProvider theme={theme(themeMode.mode)}>
-        <CssBaseline enableColorScheme />
-        <Router basename={window.env.BASE_URL || '/'}>
-          <React.Suspense fallback={<Loader />}>
-            <AppContent />
-          </React.Suspense>
-        </Router>
-      </ThemeProvider>
-    </MsalProvider>
+    <ThemeProvider theme={theme(themeMode.mode)}>
+      <CssBaseline enableColorScheme />
+      <Router basename={window.env.BASE_URL || '/'}>
+        <React.Suspense fallback={<Loader />}>
+          <AppContent />
+        </React.Suspense>
+      </Router>
+    </ThemeProvider>
   );
 };
 

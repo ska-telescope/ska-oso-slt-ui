@@ -4,6 +4,8 @@ import './services/i18n/i18n';
 import { StoreProvider } from '@ska-telescope/ska-gui-local-storage';
 import App from './components/App/App';
 import Loader from './components/Loader/Loader';
+import { MSENTRA_CLIENT_ID, MSENTRA_TENANT_ID, MSENTRA_REDIRECT_URI } from './utils/constants';
+import { AuthProvider } from '@ska-telescope/ska-login-page';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -11,7 +13,13 @@ const root = createRoot(container);
 root.render(
   <React.Suspense fallback={<Loader />}>
     <StoreProvider>
-      <App />
+      <AuthProvider
+        MSENTRA_CLIENT_ID={MSENTRA_CLIENT_ID}
+        MSENTRA_TENANT_ID={MSENTRA_TENANT_ID}
+        MSENTRA_REDIRECT_URI={MSENTRA_REDIRECT_URI}
+      >
+        <App />
+      </AuthProvider>
     </StoreProvider>
   </React.Suspense>
 );
