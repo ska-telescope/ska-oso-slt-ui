@@ -1,5 +1,6 @@
 import { useIsAuthenticated, useMsal } from '@azure/msal-react';
-import { Button, Typography, Alert, Box } from '@mui/material';
+import { Typography, Alert, Box } from '@mui/material';
+import { Button, ButtonVariantTypes, ButtonColorTypes } from '@ska-telescope/ska-gui-components';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
@@ -95,20 +96,12 @@ const Login: React.FC = () => {
           </Alert>
         )}
         <Button
-          variant="contained"
-          sx={{
-            backgroundColor: '#070068',
-            width: '150px',
-            color: '#ffffff',
-            '&:hover': {
-              backgroundColor: '#2a003f'
-            }
-          }}
+          variant={ButtonVariantTypes.Contained}
           onClick={handleLogin}
-          data-testid="login-button"
-        >
-          {t('label.signin')}
-        </Button>
+          testId="login-button"
+          label={t('label.signin')}
+          color={ButtonColorTypes.Secondary}
+        />
       </Box>
     </Box>
   );
