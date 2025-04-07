@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="0.081" tests="1" failures="0" skipped="1">
-  <testsuite name="Root Suite" timestamp="2025-03-25T10:14:29" tests="0" file="CreateShift.test.tsx" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="15.079" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-07T16:43:59" tests="0" file="CreateShift.test.tsx" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="Creating Shift" timestamp="2025-03-25T10:14:29" tests="1" time="0.003" failures="0">
+  <testsuite name="Creating Shift" timestamp="2025-04-07T16:43:59" tests="3" time="15.037" failures="0">
+    <testcase name="should create a new shift" time="3.206" classname="Creating Shift">
+      <properties>
+        <property name="test_key" value="XTP-75132"/>
+      </properties>
+    </testcase>
   </testsuite>
 </testsuites>

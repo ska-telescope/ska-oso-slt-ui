@@ -20,6 +20,8 @@ export const CheckHistoryButtonPresentOrNot = () => {
 export const SelectOperatorName = () => {
   cy.get('[data-testid="operatorName"]').click({ force: true });
   cy.get('[data-testid="operatorName"]').type('DefaultUser');
+  cy.get('[data-testid="operatorName"]').type('{downarrow}');
+  cy.get('[data-testid="operatorName"]').type('{enter}');
 };
 
 export const PressShiftStartButton = () => {
@@ -28,7 +30,6 @@ export const PressShiftStartButton = () => {
 };
 
 export const PressConfirmationDialog = () => {
-  cy.get('[data-testid="confirmationDialogYes"]').contains(translation.label.YES);
   cy.get('[data-testid="confirmationDialogYes"]').click({ force: true });
 };
 
@@ -47,4 +48,10 @@ export const AddShiftComment = () => {
   cy.get('[data-testid="shiftCommentModalClose"]').contains(translation.label.close);
   cy.get('[data-testid="shiftCommentModalClose"]').click({ force: true });
   cy.wait(waitTime);
+};
+
+export const EndShift = () => {
+  cy.get('[data-testid="shiftEndButton"]').click();
+  cy.get('[data-testid="endShiftTitle"]').contains(translation.msg.endNewShiftLabel);
+  cy.get('[data-testid="confirmationDialogYes"]').click();
 };
