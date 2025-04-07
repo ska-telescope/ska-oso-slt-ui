@@ -8,16 +8,6 @@ import {
   AddShiftComment,
   EndShift,
 } from '../common/common';
-import enTranslations from '../../../../public/locales/en/translations.json';
-
-const language = 'English';
-const waitTime = 2000;
-
-let translation;
-
-if (language === 'English') {
-  translation = enTranslations;
-}
 
 // Skipping test as it will be fixed post authentiation & permission implementation
 describe('Creating Shift', () => {
@@ -37,12 +27,9 @@ describe('Creating Shift', () => {
         PressConfirmationDialog();
       }
     });
-    // cy.get('.MuiChip-label').contains('Shift started at');
-    // cy.get('[data-testid="addShiftComments"]').should('not.be.disabled');
-    // cy.get('[data-testid="shiftEndButton"]').should('not.be.disabled');
   });
 
-  it('should add shift summary', () => {
+  it('should add shift summary', { jiraKey: 'XTP-75132' }, () => {
     cy.get('body').then((element) => {
       if (
         element.find('[data-testid="confirmationDialog"]') &&
@@ -64,7 +51,7 @@ describe('Creating Shift', () => {
     });
   });
 
-  it('should end shift', () => {
+  it('should end shift', { jiraKey: 'XTP-75132' }, () => {
     cy.get('[data-testid="shiftEndButton"]').should('not.be.disabled');
     EndShift();
     cy.get('.MuiChip-label').contains('Shift not started yet');
