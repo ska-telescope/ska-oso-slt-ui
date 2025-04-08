@@ -10,6 +10,8 @@ import {
   AddShiftComment,
   EndShift,
   validateShiftLogDataTable,
+  ViewShiftComment,
+  editShiftComment,
 } from '../common/common';
 
 const language = 'English';
@@ -23,7 +25,7 @@ const startDate = moment().utc().subtract(7, 'days').format('YYYY-MM-DD');
 const endDate = moment().utc().format('YYYY-MM-DD');
 
 describe('Creating Shift', () => {
-  it('should create and view shift', { jiraKey: 'XTP-75132' }, () => {
+  it('should create and view shift flow', { jiraKey: 'XTP-75132' }, () => {
     //header verify light/dark mode is available
     cy.get('[aria-label="light/dark mode"]').click();
     cy.get('[aria-label="light/dark mode"]').should('be.visible');
@@ -52,10 +54,16 @@ describe('Creating Shift', () => {
         element.find('[data-testid="addShiftCommentModal"]').length > 0
       ) {
         AddShiftComment();
+
+        //view shift summary
+        ViewShiftComment();
       }
     });
 
-    //should end shift
+    //edit shift summary
+    editShiftComment();
+
+    //end shift
     cy.get('[data-testid="shiftEndButton"]').should('not.be.disabled');
     EndShift();
     cy.get('.MuiChip-label').contains('Shift not started yet');
@@ -86,7 +94,6 @@ describe('Creating Shift', () => {
     cy.get('[data-testid="logHistorySearchByOperatorName"]').type('{enter}');
     cy.get('[data-testid="logHistorySearchByOperator"]').click({ force: true });
     cy.get('[data-testid="searchMessage"]').should('include.text', 'Showing records for operator');
-    // validateShiftLogDataTable();
 
     //verify shift history search by status
     cy.get('[data-testid="logSearchBy"]').click();
@@ -97,7 +104,6 @@ describe('Creating Shift', () => {
     cy.get('[data-testid="sbiStatus"]').type('{enter}');
     cy.get('[data-testid="logHistorySearchByStatus"]').click({ force: true });
     cy.get('#msgStatus').contains('Showing records for status Executing');
-    // validateShiftLogDataTable();
 
     //verify shift history Search by EB ID
     cy.get('[data-testid="logSearchBy"]').click();
@@ -150,8 +156,27 @@ describe('Creating Shift', () => {
       cy.get('[data-id="1"] > [data-field="shift_id"] > [data-testid="shiftId"]').click();
       cy.get('[data-testid="addShiftAnnotations"]').contains(translation.label.addShiftAnnotations);
       cy.get('[data-testid="addShiftAnnotations"]').click({ force: true });
-      cy.get('[data-testid="operatorShiftAnnotation"]').type('dummy text added');
+      cy.get('[data-testid="operatorShiftAnnotation"]').type('dummy text added by the operator');
       cy.get('[data-testid="shiftAnnotationButton"]').click();
+      cy.get('[data-testid="shiftAnnotationModalClose"]').click();
+    });
+
+    //view shift annotation
+    cy.get('[data-testid="viewShiftAnnotations"]').contains(translation.label.viewShiftAnnotations);
+    cy.get('[data-testid="shiftAnnotationItem"]').contains('dummy text added by the operator');
+
+    //edit shift annotation
+    cy.get('[data-testid="editShiftAnnotation0"]').click({ force: true, multiple: true });
+    cy.get('[data-testid="operatorShiftAnnotation"]').clear();
+    cy.get('[data-testid="operatorShiftAnnotation"]').type('Updated text added by the operator');
+    cy.get('[data-testid="shiftAnnotationButton"]').click();
+    cy.get('[data-testid="shiftAnnotationModalClose"]').click();
+    cy.get('body').then((ele) => {
+      if (ele.find('[data-testid="shiftAnnotationItem"]').length > 0) {
+        cy.get('[data-testid="shiftAnnotationItem"]').contains(
+          'Updated text added by the operator',
+        );
+      }
     });
   });
 });

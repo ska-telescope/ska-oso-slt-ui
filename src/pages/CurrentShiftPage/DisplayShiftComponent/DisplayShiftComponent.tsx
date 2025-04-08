@@ -83,7 +83,7 @@ function DisplayShiftComponent(isLocalData?) {
           {t('label.comments')}:{' '}
         </span>
       )}
-      <span>{shiftCommentItem.comment}</span>
+      <span data-testid="shiftCommentItem">{shiftCommentItem.comment}</span>
       {shiftCommentItem.comment && (
         <Tooltip title="Edit the log comment" placement="bottom-end">
           <DriveFileRenameOutlineIcon
@@ -93,7 +93,7 @@ function DisplayShiftComponent(isLocalData?) {
             style={{
               cursor: 'pointer',
               position: 'relative',
-              top: '7px'
+              top: '7px',
             }}
             onClick={() => onEditShiftComment(shiftCommentItem)}
           />

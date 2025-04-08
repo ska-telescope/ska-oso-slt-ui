@@ -12,6 +12,7 @@ stages:
   - dependencies
   - lint
   - build
+  - deploy
   - test
   - scan
   - pages

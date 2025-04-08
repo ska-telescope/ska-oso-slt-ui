@@ -62,13 +62,36 @@ export const ClickAddShiftComment = () => {
 export const AddShiftComment = () => {
   cy.get('[data-testid="addShiftCommentTitle"]').contains(translation.label.addCommentsAndImages);
   cy.get('[data-testid="addShiftComment"]').contains(translation.label.addShiftComments);
-
   cy.get('[data-testid="operatorShiftComment"]').type('This is test shift comment by operator');
   cy.get('[data-testid="shiftCommentButton"]').contains(translation.label.add);
   cy.get('[data-testid="shiftCommentButton"]').click({ force: true });
   cy.get('[data-testid="shiftCommentModalClose"]').contains(translation.label.close);
   cy.get('[data-testid="shiftCommentModalClose"]').click({ force: true });
   cy.wait(waitTime);
+};
+
+export const ViewShiftComment = () => {
+  cy.get('[data-testid="viewShiftComments"]').contains(translation.label.viewShiftComments);
+  cy.get('[data-testid="shiftCommentItem"]').contains('This is test shift comment by operator');
+};
+
+export const editShiftComment = () => {
+  cy.get('[data-testid="editShiftComment"]').click({ force: true, multiple: true });
+  cy.get('body').then((element) => {
+    if (
+      element.find('[data-testid="addShiftCommentModal"]') &&
+      element.find('[data-testid="addShiftCommentModal"]').length > 0
+    ) {
+      cy.get('[data-testid="addShiftCommentTitle"]').contains(
+        translation.label.updateCommentsAndImages,
+      );
+      cy.get('[data-testid="operatorShiftComment"]').type('Update test shift comment by operator');
+      cy.get('[data-testid="shiftCommentButton"]').contains(translation.label.add);
+      cy.get('[data-testid="shiftCommentButton"]').click({ force: true });
+      cy.get('[data-testid="shiftCommentModalClose"]').contains(translation.label.close);
+      cy.get('[data-testid="shiftCommentModalClose"]').click({ force: true });
+    }
+  });
 };
 
 export const EndShift = () => {

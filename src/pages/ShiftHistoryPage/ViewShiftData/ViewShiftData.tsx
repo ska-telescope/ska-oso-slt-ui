@@ -128,7 +128,7 @@ const ViewShiftData = ({ data, isLocalData }) => {
           {t('label.annotations')}:{' '}
         </span>
       )}
-      <span>{shiftAnnotationItem.annotation}</span>
+      <span data-testid="shiftAnnotationItem">{shiftAnnotationItem.annotation}</span>
       {shiftAnnotationItem.annotation && (
         <Tooltip title="Edit the Annotation" placement="bottom-end">
           <DriveFileRenameOutlineIcon
@@ -138,7 +138,7 @@ const ViewShiftData = ({ data, isLocalData }) => {
             style={{
               cursor: 'pointer',
               position: 'relative',
-              top: '7px'
+              top: '7px',
             }}
             onClick={() => onEditShiftAnnotation(shiftAnnotationItem)}
           />
