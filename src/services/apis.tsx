@@ -133,7 +133,7 @@ const apiService = {
       const errorResponse = handleAxiosError(err);
       return { data: null, status: errorResponse.status, error: errorResponse.error };
     }
-  },
+  }
 };
 
 export default apiService;
