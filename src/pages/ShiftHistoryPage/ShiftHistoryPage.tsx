@@ -68,7 +68,7 @@ function ShiftHistoryPage(isLocalData) {
   }, []);
 
   const message = () => (
-    <div>
+    <div data-testid="searchMessage">
       {searchType === SEARCH_TYPE.today && (
         <div>
           <span id="msgToday">

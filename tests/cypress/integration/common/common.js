@@ -9,6 +9,27 @@ if (language === 'English') {
   translation = enTranslations;
 }
 
+export const validateShiftLogDataTable = () => {
+  cy.wait(waitTime);
+  cy.get('body').then((ele) => {
+    if (ele.find('[data-testid="sltHistoryTable"]').length > 0) {
+      cy.get('[data-testid="sltHistoryTable"]').should('be.visible');
+      cy.get('[data-testid="sltHistoryTable"]')
+        .get('[data-field="shift_id"]')
+        .contains(translation.label.shiftId);
+      cy.get('[data-testid="sltHistoryTable"]')
+        .get('[data-field="shift_start"]')
+        .contains(translation.label.shiftStart);
+      cy.get('[data-testid="sltHistoryTable"]')
+        .get('[data-field="shift_end"]')
+        .contains(translation.label.shiftEnd);
+      cy.get('[data-testid="sltHistoryTable"]')
+        .get('[data-field="operator_name"]')
+        .contains(translation.label.operatorName);
+    }
+  });
+};
+
 export const CheckManageShiftPresentOrNot = () => {
   cy.get('[data-testid="manageShift"]').contains(translation.label.manageShift);
 };
