@@ -83,7 +83,7 @@ function DisplayShiftComponent(isLocalData?) {
           {t('label.comments')}:{' '}
         </span>
       )}
-      <span>{shiftCommentItem.comment}</span>
+      <span data-testid="shiftCommentItem">{shiftCommentItem.comment}</span>
       {shiftCommentItem.comment && (
         <Tooltip title="Edit the log comment" placement="bottom-end">
           <DriveFileRenameOutlineIcon
@@ -452,7 +452,9 @@ function DisplayShiftComponent(isLocalData?) {
   const endShiftAlertTitle = () => (
     <Grid container direction="row" justifyContent="space-around" alignItems="center">
       <Grid item>
-        <Typography variant="h5">{t('msg.endNewShiftLabel')}</Typography>
+        <Typography variant="h5" data-testid="endShiftTitle">
+          {t('msg.endNewShiftLabel')}
+        </Typography>
       </Grid>
     </Grid>
   );
