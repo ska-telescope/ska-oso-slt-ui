@@ -9,7 +9,7 @@ import {
 } from '../common/common';
 
 // Skipping test as it will be fixed post authentiation & permission implementation
-describe.skip('Creating Shift', () => {
+describe('Creating Shift', () => {
   it('should create a new shift', { jiraKey: 'XTP-75132' }, () => {
     CheckManageShiftPresentOrNot();
     CheckHistoryButtonPresentOrNot();
