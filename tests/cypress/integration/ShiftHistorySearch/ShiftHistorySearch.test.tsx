@@ -1,5 +1,3 @@
-/// <reference types='cypress' />
-
 import enTranslations from '../../../../public/locales/en/translations.json';
 import moment from 'moment';
 const language = 'English';
@@ -112,66 +110,66 @@ const validateShiftLogView = () => {
   });
 };
 
-describe('Shift history search', () => {
-  //   it('Content : Verify shift history search by dates', () => {
-  //     cy.get('[data-testid="historyButton"]').click();
-  //     cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
-  //     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
-  //     cy.get('[data-testid="dateEntryStart"]').type(startDate);
-  //     cy.get('[data-testid="dateEntryEnd"]').type(endDate);
-  //     cy.get('[data-testid="logHistorySearch"]').click();
-  //     validateShiftLogDataTable();
-  //   });
+describe('Shift History View and Search', () => {
+  it('Content : Verify shift history search by dates', { jiraKey: 'XTP-75132' }, () => {
+    cy.get('[data-testid="historyButton"]').click();
+    cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
+    cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
+    cy.get('[data-testid="dateEntryStart"]').type(startDate);
+    cy.get('[data-testid="dateEntryEnd"]').type(endDate);
+    cy.get('[data-testid="logHistorySearch"]').click();
+    validateShiftLogDataTable();
+  });
 
-  //   it('Content : Verify shift history search by operator', () => {
-  //     cy.get('[data-testid="historyButton"]').click();
-  //     cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
-  //     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
-  //     cy.get('[data-testid="logSearchBy"]').click();
-  //     cy.contains('Search by operator').click();
-  //     cy.get('[data-testid="logHistorySearchByOperatorName"]').click({ force: true });
-  //     cy.get('[data-testid="logHistorySearchByOperatorName"]').type('DefaultUser');
-  //     cy.get('[data-testid="logHistorySearchByOperator"]').click({ force: true });
-  //     validateShiftLogDataTable();
-  //   });
+  it('Content : Verify shift history search by operator', { jiraKey: 'XTP-75132' }, () => {
+    cy.get('[data-testid="historyButton"]').click();
+    cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
+    cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
+    cy.get('[data-testid="logSearchBy"]').click();
+    cy.contains('Search by operator').click();
+    cy.get('[data-testid="logHistorySearchByOperatorName"]').click({ force: true });
+    cy.get('[data-testid="logHistorySearchByOperatorName"]').type('DefaultUser');
+    cy.get('[data-testid="logHistorySearchByOperator"]').click({ force: true });
+    validateShiftLogDataTable();
+  });
 
-  //   it('Content : Verify shift history search by status', () => {
-  //     cy.get('[data-testid="historyButton"]').click();
-  //     cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
-  //     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
-  //     cy.get('[data-testid="logSearchBy"]').click();
-  //     cy.contains('Search by status').click();
-  //     cy.get('[data-testid="sbiStatus"]').click({ force: true });
-  //     cy.get('[data-testid="sbiStatus"]').type('Executing');
-  //     cy.get('[data-testid="logHistorySearchByStatus"]').click({ force: true });
-  //     validateShiftLogDataTable();
-  //   });
+  it('Content : Verify shift history search by status', { jiraKey: 'XTP-75132' }, () => {
+    cy.get('[data-testid="historyButton"]').click();
+    cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
+    cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
+    cy.get('[data-testid="logSearchBy"]').click();
+    cy.contains('Search by status').click();
+    cy.get('[data-testid="sbiStatus"]').click({ force: true });
+    cy.get('[data-testid="sbiStatus"]').type('Executing');
+    cy.get('[data-testid="logHistorySearchByStatus"]').click({ force: true });
+    validateShiftLogDataTable();
+  });
 
-  //   it('Content : Verify shift history Search by EB ID', () => {
-  //     cy.get('[data-testid="historyButton"]').click();
-  //     cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
-  //     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
-  //     cy.get('[data-testid="logSearchBy"]').click();
-  //     cy.contains('Search by EB ID').click();
-  //     cy.get('[data-testid="EbId"]').click({ force: true });
-  //     cy.get('[data-testid="EbId"]').type('Executing');
-  //     cy.get('[data-testid="logHistorySearchByEBID"]').click({ force: true });
-  //     validateShiftLogDataTable();
-  //   });
+  it('Content : Verify shift history Search by EB ID', { jiraKey: 'XTP-75132' }, () => {
+    cy.get('[data-testid="historyButton"]').click();
+    cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
+    cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
+    cy.get('[data-testid="logSearchBy"]').click();
+    cy.contains('Search by EB ID').click();
+    cy.get('[data-testid="EbId"]').click({ force: true });
+    cy.get('[data-testid="EbId"]').type('Executing');
+    cy.get('[data-testid="logHistorySearchByEBID"]').click({ force: true });
+    validateShiftLogDataTable();
+  });
 
-  //   it('Content : Verify shift history Search by SBI ID', () => {
-  //     cy.get('[data-testid="historyButton"]').click();
-  //     cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
-  //     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
-  //     cy.get('[data-testid="logSearchBy"]').click();
-  //     cy.contains('Search by SBI ID').click();
-  //     cy.get('[data-testid="sbiId"]').click({ force: true });
-  //     cy.get('[data-testid="sbiId"]').type('Executing');
-  //     cy.get('[data-testid="logHistorySearchBySbiID"]').click({ force: true });
-  //     validateShiftLogDataTable();
-  //   });
+  it('Content : Verify shift history Search by SBI ID', { jiraKey: 'XTP-75132' }, () => {
+    cy.get('[data-testid="historyButton"]').click();
+    cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
+    cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
+    cy.get('[data-testid="logSearchBy"]').click();
+    cy.contains('Search by SBI ID').click();
+    cy.get('[data-testid="sbiId"]').click({ force: true });
+    cy.get('[data-testid="sbiId"]').type('Executing');
+    cy.get('[data-testid="logHistorySearchBySbiID"]').click({ force: true });
+    validateShiftLogDataTable();
+  });
 
-  it.skip('Content : Verify shift history view', () => {
+  it('should view shift history', { jiraKey: 'XTP-75132' }, () => {
     cy.get('[data-testid="historyButton"]').click();
     cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
     cy.get('[data-testid="logButton"]').contains(translation.label.logButton);
@@ -180,7 +178,8 @@ describe('Shift history search', () => {
     cy.get('[data-testid="logHistorySearch"]').click();
     validateShiftLogView();
   });
-  it('Content : Verify shift annotation flow', () => {
+
+  it('should add shift annotation', { jiraKey: 'XTP-75132' }, () => {
     cy.get('[data-testid="historyButton"]').click();
     cy.get('[data-testid="logHistoryLabel"]').contains(translation.label.logHistoryTitle);
 
@@ -206,12 +205,11 @@ describe('Shift history search', () => {
           .contains(translation.label.operatorName);
       }
 
-      if (ele.find('[data-testid="addShiftAnnotations"]').length > 0) {
-        cy.get('[data-testid="addShiftAnnotations"]').contains(
-          translation.label.addShiftAnnotations,
-        );
-        cy.get('[data-testid="addShiftAnnotations"]').click({ force: true });
-      }
+      cy.get('[data-id="1"] > [data-field="shift_id"] > [data-testid="shiftId"]').click();
+      cy.get('[data-testid="addShiftAnnotations"]').contains(translation.label.addShiftAnnotations);
+      cy.get('[data-testid="addShiftAnnotations"]').click({ force: true });
+      cy.get('[data-testid="operatorShiftAnnotation"]').type('dummy text added');
+      cy.get('[data-testid="shiftAnnotationButton"]').click();
     });
   });
 });

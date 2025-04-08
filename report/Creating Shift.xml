@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="15.079" tests="3" failures="0">
-  <testsuite name="Root Suite" timestamp="2025-04-07T16:43:59" tests="0" file="CreateShift.test.tsx" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="20.056" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-08T05:47:07" tests="0" file="CreateShift.test.tsx" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="Creating Shift" timestamp="2025-04-07T16:43:59" tests="3" time="15.037" failures="0">
-    <testcase name="should create a new shift" time="3.206" classname="Creating Shift">
+  <testsuite name="Creating Shift" timestamp="2025-04-08T05:47:07" tests="3" time="20.007" failures="0">
+    <testcase name="should create a new shift" time="5.630" classname="Creating Shift">
+      <properties>
+        <property name="test_key" value="XTP-75132"/>
+      </properties>
+    </testcase>
+    <testcase name="should add shift summary" time="8.264" classname="Creating Shift">
+      <properties>
+        <property name="test_key" value="XTP-75132"/>
+      </properties>
+    </testcase>
+    <testcase name="should end shift" time="5.971" classname="Creating Shift">
       <properties>
         <property name="test_key" value="XTP-75132"/>
       </properties>
